@@ -2,25 +2,116 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #1e293b;
+  --primary: #74b83e;
+  --primary-hover: #65a30d;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --color-primary: var(--primary);
+  --font-sans: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+/* Custom Scrollbar that appears smoothly on hover */
+.hover-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+  transition: scrollbar-color 0.25s ease;
+}
+
+.hover-scrollbar:hover {
+  scrollbar-color: #74b83e #f4f4f5;
+}
+
+.hover-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+
+.hover-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 9999px;
+}
+
+.hover-scrollbar:hover::-webkit-scrollbar-track {
+  background: #f4f4f5;
+}
+
+.hover-scrollbar::-webkit-scrollbar-thumb {
+  background-color: transparent;
+  border-radius: 9999px;
+  transition: background-color 0.25s ease;
+}
+
+.hover-scrollbar:hover::-webkit-scrollbar-thumb {
+  background-color: #74b83e;
+}
+
+.hover-scrollbar:hover::-webkit-scrollbar-thumb:hover {
+  background-color: #5fa02f;
+}
+
+/* Drawer scroll with native touch scrolling & visible scrollbar */
+.drawer-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+  overscroll-behavior: contain;
+}
+
+.drawer-scroll::-webkit-scrollbar {
+  width: 5px;
+}
+
+.drawer-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.drawer-scroll::-webkit-scrollbar-thumb {
+  background-color: #cbd5e1;
+  border-radius: 9999px;
+  transition: background-color 0.2s ease;
+}
+
+.drawer-scroll:hover::-webkit-scrollbar-thumb {
+  background-color: #74b83e;
+}
+
+/* Floating animation for Hero Vegetable Basket (Enhanced up-down range) */
+@keyframes heroFloatUpDown {
+  0%, 100% {
+    transform: translateY(10px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-34px) rotate(1.4deg);
+  }
+}
+
+@keyframes basketShadowPulse {
+  0%, 100% {
+    transform: scale(1.12);
+    opacity: 0.38;
+  }
+  50% {
+    transform: scale(0.6);
+    opacity: 0.1;
+  }
+}
+
+.animate-float-basket {
+  animation: heroFloatUpDown 3.4s ease-in-out infinite;
+}
+
+.animate-shadow-pulse {
+  animation: basketShadowPulse 3.4s ease-in-out infinite;
 }
