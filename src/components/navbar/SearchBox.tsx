@@ -39,7 +39,7 @@ export default function SearchBox() {
   };
 
   return (
-    <div className="w-full" ref={categoryRef}>
+    <div className="w-full font-lemonada" ref={categoryRef}>
       <form
         onSubmit={handleSearchSubmit}
         className="w-full flex items-center h-10 sm:h-11 bg-white border border-zinc-200/90 hover:border-zinc-300 focus-within:border-[#74B83E] focus-within:ring-2 focus-within:ring-[#74B83E]/15 rounded-lg sm:rounded-[2px] transition-all shadow-2xs relative"

@@ -8,16 +8,18 @@ import NavLinks from "./NavLinks";
 import UserDropdown from "./UserDropdown";
 import SearchBox from "./SearchBox";
 import CartDrawer from "./CartDrawer";
+import { useCartStore } from "@/store/cartStore";
+import { useWishlistStore } from "@/store/wishlistStore";
 import MobileNav from "./MobileNav";
 
 export default function Navbar() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
-  const [cartCount, setCartCount] = useState(1);
-  const [wishlistCount, setWishlistCount] = useState(0);
+  const cartCount = useCartStore((state) => state.items.reduce((count, item) => count + item.quantity, 0));
+  const wishlistCount = useWishlistStore((state) => state.items.length);
 
   return (
-    <header className="w-full bg-white border-b border-zinc-100 sticky top-0 z-40 shadow-xs">
+    <header className="w-full bg-white border-b border-zinc-100 sticky top-0 z-40 shadow-xs font-lemonada">
       {/* =========================================
           ROW 1: MAIN NAVIGATION BAR
          ========================================= */}
@@ -96,7 +98,6 @@ export default function Navbar() {
       <CartDrawer
         isOpen={isCartOpen}
         onClose={() => setIsCartOpen(false)}
-        cartCount={cartCount}
       />
 
       <MobileNav

@@ -5,6 +5,7 @@
   --foreground: #1e293b;
   --primary: #74b83e;
   --primary-hover: #65a30d;
+  --font-lemonada: 'Lemonada', cursive, sans-serif;
 }
 
 @theme inline {
@@ -13,6 +14,15 @@
   --color-primary: var(--primary);
   --font-sans: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
   --font-mono: var(--font-geist-mono);
+  --font-lemonada: 'Lemonada', cursive, sans-serif;
+}
+
+.font-lemonada {
+  font-family: 'Lemonada', cursive, sans-serif !important;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -110,8 +120,10 @@ body {
 
 .animate-float-basket {
   animation: heroFloatUpDown 3.4s ease-in-out infinite;
+  will-change: transform;
 }
 
 .animate-shadow-pulse {
   animation: basketShadowPulse 3.4s ease-in-out infinite;
+  will-change: transform, opacity;
 }

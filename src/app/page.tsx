@@ -1,10 +1,12 @@
 import HeroSlider from "@/components/home/HeroSlider";
 import PromoBanners from "@/components/home/PromoBanners";
 import OurProducts from "@/components/home/OurProducts";
+import SpecialProducts from "@/components/home/SpecialProducts";
+import LatestNews from "@/components/home/LatestNews";
 
 export default function Home() {
   return (
-    <div className="flex-1 bg-zinc-50/50 pb-16">
+    <div className="flex-1 bg-white pb-16">
       {/* Full-width Hero Section */}
       <HeroSlider />
 
@@ -15,6 +17,12 @@ export default function Home() {
 
         {/* Our Products Section */}
         <OurProducts />
+
+        {/* Special Products Section */}
+        <SpecialProducts />
+
+        {/* Latest News Section */}
+        <LatestNews />
       </div>
     </div>
   );

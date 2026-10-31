@@ -84,7 +84,7 @@ export default function MobileNav({ isOpen, onClose }: MobileNavProps) {
 
       {/* Drawer */}
       <div
-        className="fixed inset-y-0 left-0 w-full max-w-xs sm:max-w-sm h-full max-h-screen max-h-dvh bg-white shadow-2xl flex flex-col z-50 animate-in slide-in-from-left duration-300 overflow-hidden"
+        className="fixed inset-y-0 left-0 w-full max-w-xs sm:max-w-sm h-full max-h-screen max-h-dvh bg-white shadow-2xl flex flex-col z-50 animate-in slide-in-from-left duration-300 overflow-hidden font-lemonada"
         data-lenis-prevent
       >
         {/* Header */}

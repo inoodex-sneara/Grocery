@@ -54,39 +54,39 @@ export const UKFlag = () => (
 
 export const currencies: CurrencyItem[] = [
   {
-    code: "DZ",
-    name: "Algerian Dinar",
-    symbol: "DA",
-    flagNode: <AlgeriaFlag />,
-    rate: 134.5,
+    code: "BDT",
+    name: "Bangladeshi Taka",
+    symbol: "৳",
+    flagNode: <BDFlag />,
+    rate: 1.0,
   },
   {
     code: "USD",
     name: "US Dollar",
     symbol: "$",
     flagNode: <USAFlag />,
-    rate: 1.0,
+    rate: 0.0085,
   },
   {
     code: "EUR",
     name: "Euro",
     symbol: "€",
     flagNode: <EUFlag />,
-    rate: 0.92,
-  },
-  {
-    code: "BDT",
-    name: "Bangladeshi Taka",
-    symbol: "৳",
-    flagNode: <BDFlag />,
-    rate: 118.0,
+    rate: 0.0078,
   },
   {
     code: "GBP",
     name: "British Pound",
     symbol: "£",
     flagNode: <UKFlag />,
-    rate: 0.78,
+    rate: 0.0066,
+  },
+  {
+    code: "DZ",
+    name: "Algerian Dinar",
+    symbol: "DA",
+    flagNode: <AlgeriaFlag />,
+    rate: 1.14,
   },
 ];
 

@@ -243,30 +243,30 @@ export default function HeroSlider() {
           })}
         </div>
 
-        {/* Floating Animated Vegetable Basket (Medium size, Top-Bottom Float Animation) */}
-        <div className="absolute right-2 xs:right-4 sm:right-8 md:right-14 lg:right-20 xl:right-28 bottom-5 sm:bottom-12 md:bottom-16 lg:bottom-20 z-25 pointer-events-none select-none">
+        {/* Floating Animated Vegetable Basket (Enlarged size, Top-Bottom Float Animation) */}
+        <div className="absolute right-2 xs:right-4 sm:right-6 md:right-10 lg:right-16 xl:right-24 2xl:right-32 bottom-4 sm:bottom-8 md:bottom-10 lg:bottom-14 xl:bottom-16 2xl:bottom-20 z-25 pointer-events-none select-none">
           {/* Basket Image with Up-Down Floating Animation */}
           <div className="relative animate-float-basket">
-            <div className="relative w-24 xs:w-28 sm:w-44 md:w-56 lg:w-64 xl:w-72 aspect-[1343/1171] drop-shadow-[0_20px_30px_rgba(0,0,0,0.22)]">
+            <div className="relative w-32 xs:w-40 sm:w-56 md:w-72 lg:w-[350px] xl:w-[420px] 2xl:w-[460px] aspect-[1343/1171] drop-shadow-[0_20px_35px_rgba(0,0,0,0.25)]">
               <Image
                 src="/products/fresh-vegetable-basket.png"
                 alt="Fresh Vegetable Basket"
                 fill
-                sizes="(max-width: 640px) 120px, (max-width: 1024px) 240px, 320px"
+                sizes="(max-width: 640px) 160px, (max-width: 1024px) 288px, (max-width: 1280px) 350px, 460px"
                 className="object-contain"
                 priority
               />
             </div>
 
             {/* Organic Floating Badge */}
-            <div className="hidden xs:flex absolute -top-1.5 -left-1.5 sm:-top-3 sm:-left-3 bg-white/95 backdrop-blur-xs border border-emerald-100 shadow-md px-1.5 sm:px-2.5 py-0.5 sm:py-1 rounded-full items-center gap-1 text-[9px] sm:text-[11px] font-bold text-emerald-800">
-              <span className="text-xs">🌱</span>
+            <div className="hidden xs:flex absolute -top-1.5 -left-1.5 sm:-top-3 sm:-left-3 lg:-top-3.5 lg:-left-3.5 bg-white/95 backdrop-blur-xs border border-emerald-100 shadow-md px-1.5 sm:px-2.5 lg:px-3 py-0.5 sm:py-1 rounded-full items-center gap-1 text-[9px] sm:text-[11px] lg:text-xs font-bold text-emerald-800">
+              <span className="text-xs sm:text-sm">🌱</span>
               <span>100% Fresh</span>
             </div>
           </div>
 
           {/* Dynamic Ground Shadow that breathes as basket moves up/down */}
-          <div className="w-16 xs:w-20 sm:w-28 md:w-36 lg:w-44 h-2.5 sm:h-4 bg-black/25 blur-xs rounded-full mx-auto mt-1 animate-shadow-pulse" />
+          <div className="w-20 xs:w-28 sm:w-40 md:w-52 lg:w-64 xl:w-[300px] 2xl:w-[330px] h-2.5 sm:h-4 md:h-5 bg-black/25 blur-xs rounded-full mx-auto mt-1 sm:mt-1.5 animate-shadow-pulse" />
         </div>
 
         {/* Navigation Arrow Left (Responsive sizing & placement) */}

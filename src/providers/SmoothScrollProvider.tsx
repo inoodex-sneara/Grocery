@@ -1,6 +1,8 @@
 "use client";
 
-import Lenis from "@studio-freight/lenis";
+import "lenis/dist/lenis.css";
+
+import Lenis from "lenis";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
@@ -20,10 +22,11 @@ export function SmoothScrollProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const instance = new Lenis({
       duration: 1.2,
-      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: "vertical",
       gestureOrientation: "vertical",
       smoothWheel: true,
+      allowNestedScroll: true,
       wheelMultiplier: 1,
       touchMultiplier: 1.5,
       infinite: false,

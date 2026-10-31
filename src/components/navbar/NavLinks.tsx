@@ -80,7 +80,7 @@ export default function NavLinks() {
   ];
 
   return (
-    <nav className="flex items-center gap-4 lg:gap-6 xl:gap-8 text-[15px] lg:text-[16px] xl:text-[17px] font-semibold text-zinc-900 whitespace-nowrap">
+    <nav className="flex items-center gap-3 lg:gap-5 xl:gap-7 text-[13px] lg:text-[14px] xl:text-[15px] font-semibold text-zinc-900 whitespace-nowrap font-lemonada">
       {/* Home (Active style matching the screenshot) */}
       <Link
         href="/"
@@ -103,20 +103,20 @@ export default function NavLinks() {
         onMouseEnter={() => setActiveDropdown("bestsellers")}
         onMouseLeave={() => setActiveDropdown(null)}
       >
-        <button
-          type="button"
-          onClick={() => setActiveDropdown(activeDropdown === "bestsellers" ? null : "bestsellers")}
-          className="inline-flex items-center gap-1.5 text-zinc-900 hover:text-[#74B83E] transition-colors cursor-pointer group"
-        >
-          <span>Best Sellers</span>
-          <ChevronDown
-            className={`w-4 h-4 text-zinc-500 transition-transform duration-200 ${
-              activeDropdown === "bestsellers"
-                ? "rotate-180 text-[#74B83E]"
-                : "group-hover:text-[#74B83E] group-hover:rotate-180"
-            }`}
-          />
-        </button>
+        <div className="inline-flex items-center gap-1">
+          <Link href="/best-sellers" className="text-zinc-900 hover:text-[#74B83E] transition-colors">
+            Best Sellers
+          </Link>
+          <button
+            type="button"
+            aria-label="Browse best seller categories"
+            aria-expanded={activeDropdown === "bestsellers"}
+            onClick={() => setActiveDropdown(activeDropdown === "bestsellers" ? null : "bestsellers")}
+            className="inline-flex items-center rounded p-0.5 text-zinc-500 hover:text-[#74B83E] transition-colors cursor-pointer"
+          >
+            <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${activeDropdown === "bestsellers" ? "rotate-180 text-[#74B83E]" : "group-hover:rotate-180"}`} />
+          </button>
+        </div>
 
         {/* Mega Menu Dropdown */}
         <div
