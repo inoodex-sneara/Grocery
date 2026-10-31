@@ -82,7 +82,7 @@ export default function CheckoutPage() {
   const [transactionId, setTransactionId] = useState("");
   const [orderSaveError, setOrderSaveError] = useState("");
   const [cartHydrated, setCartHydrated] = useState(() =>
-    useCartStore.persist.hasHydrated(),
+    useCartStore.persist?.hasHydrated() ?? false,
   );
   const [cartHydrationError, setCartHydrationError] = useState(false);
   const items = useCartStore((state) => state.items);
