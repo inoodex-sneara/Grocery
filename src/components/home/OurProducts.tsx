@@ -9,6 +9,7 @@ import { useWishlistStore } from "@/store/wishlistStore";
 
 interface Product {
   id: string;
+  slug: string;
   name: string;
   image: string;
   hoverImage?: string;
@@ -21,52 +22,56 @@ interface Product {
 
 const CATEGORIES = [
   {
-    id: "milk",
-    name: "Milk",
-    icon: "/products/icon-milk.png",
+    id: "vegetables",
+    name: "Vegetables",
+    icon: "/products/icon-vegetables.png",
     bgClass: "bg-[#e8f7ea]",
-    borderClass: "border-emerald-200",
   },
   {
     id: "fruits",
     name: "Fruits",
     icon: "/products/icon-fruits.png",
     bgClass: "bg-[#fdeeed]",
-    borderClass: "border-rose-200",
   },
   {
     id: "flour",
-    name: "Flour",
+    name: "Grains & Flour",
     icon: "/products/icon-flour.png",
     bgClass: "bg-[#e8f3fc]",
-    borderClass: "border-sky-200",
   },
   {
     id: "meat",
     name: "Meat",
     icon: "/products/icon-meat.png",
     bgClass: "bg-[#fff6dc]",
-    borderClass: "border-amber-200",
-  },
-  {
-    id: "vegetables",
-    name: "Vegetables",
-    icon: "/products/icon-vegetables.png",
-    bgClass: "bg-[#fbebf6]",
-    borderClass: "border-pink-200",
   },
   {
     id: "eggs",
     name: "Eggs",
     icon: "/products/icon-eggs.png",
-    bgClass: "bg-[#74B83E]",
-    borderClass: "border-[#74B83E]",
+    bgClass: "bg-[#ecf7e6]",
   },
-];
+  {
+    id: "milk",
+    name: "Milk & Dairy",
+    icon: "/products/icon-milk.png",
+    bgClass: "bg-[#fbebf6]",
+  },
+] as const;
+
+const SHOP_CATEGORY_MAP: Record<string, string> = {
+  vegetables: "Vegetables",
+  fruits: "Fresh Fruits",
+  flour: "Grains & Cereals",
+  eggs: "Dairy & Eggs",
+  milk: "Dairy & Eggs",
+};
 
 const PRODUCTS: Product[] = [
+  // Vegetables
   {
     id: "prod-tomato",
+    slug: "tomato",
     name: "Tomato",
     image: "/products/prod-tomato.webp",
     hoverImage: "/products/prod-tomato-hover.jpg",
@@ -78,6 +83,7 @@ const PRODUCTS: Product[] = [
   },
   {
     id: "prod-coriander",
+    slug: "coriander",
     name: "Coriander",
     image: "/products/prod-coriander.png",
     hoverImage: "/products/prod-coriander-hover.jpg",
@@ -89,48 +95,196 @@ const PRODUCTS: Product[] = [
   },
   {
     id: "prod-beetroot",
+    slug: "beetroot",
     name: "Beetroot",
     image: "/products/prod-beetroot.webp",
     hoverImage: "/products/prod-beetroot-hover.jpg",
     price: 90,
     oldPrice: 120,
     rating: 5,
+    badge: "Save 25%",
     category: "vegetables",
   },
   {
     id: "prod-cucumber",
+    slug: "cucumber",
     name: "Cucumber",
     image: "/products/prod-cucumber.webp",
     hoverImage: "/products/prod-cucumber-hover.webp",
     price: 55,
     oldPrice: 75,
     rating: 5,
+    badge: "Save 26%",
     category: "vegetables",
   },
   {
     id: "prod-broccoli",
+    slug: "broccoli",
     name: "Broccoli",
     image: "/products/prod-broccoli.png",
     hoverImage: "/products/prod-broccoli-hover.webp",
     price: 85,
     oldPrice: 110,
     rating: 5,
+    badge: "Save 22%",
     category: "vegetables",
   },
   {
+    id: "prod-cauliflower",
+    slug: "cucumber",
+    name: "Cauliflower",
+    image: "/products/65fa976ad61902ef2307cefc_Cauliflower-Fulcopy_1.webp",
+    price: 60,
+    oldPrice: 80,
+    rating: 5,
+    badge: "Save 25%",
+    category: "vegetables",
+  },
+
+  // Fruits
+  {
     id: "prod-jamun",
+    slug: "jamun",
     name: "Jamun Fruit",
     image: "/products/prod-jamun.webp",
     hoverImage: "/products/prod-jamun-hover.webp",
     price: 220,
     oldPrice: 280,
     rating: 5,
+    badge: "Save 21%",
     category: "fruits",
+  },
+  {
+    id: "prod-watermelon",
+    slug: "watermelon",
+    name: "Watermelon",
+    image: "/shop/Shop-1.webp",
+    price: 180,
+    oldPrice: 220,
+    rating: 5,
+    badge: "Save 18%",
+    category: "fruits",
+  },
+  {
+    id: "prod-oranges",
+    slug: "orange",
+    name: "Valencia Oranges",
+    image: "/shop/Shop-17.webp",
+    price: 240,
+    oldPrice: 280,
+    rating: 5,
+    badge: "Save 15%",
+    category: "fruits",
+  },
+  {
+    id: "prod-grapes",
+    slug: "grapes",
+    name: "Red Seedless Grapes",
+    image: "/shop/Shop-20_6dc096c7-db88-496b-b3fe-22b28c244a51.webp",
+    price: 380,
+    oldPrice: 450,
+    rating: 5,
+    badge: "Save 15%",
+    category: "fruits",
+  },
+
+  // Grains & Flour
+  {
+    id: "prod-buckwheat",
+    slug: "buckwheat",
+    name: "Whole Buckwheat",
+    image: "/shop/Shop-26_7b8fa6d5-1a3c-42f9-ae94-02b6fcbb4263.webp",
+    price: 195,
+    oldPrice: 240,
+    rating: 5,
+    badge: "Save 19%",
+    category: "flour",
+  },
+  {
+    id: "prod-lentils",
+    slug: "lentils",
+    name: "Natural Brown Lentils",
+    image: "/shop/Shop-28.webp",
+    price: 140,
+    oldPrice: 175,
+    rating: 5,
+    badge: "Save 20%",
+    category: "flour",
+  },
+  {
+    id: "prod-rice-tm",
+    slug: "rice",
+    name: "Premium TM Rice",
+    image: "/products/prod-rice.webp",
+    price: 160,
+    oldPrice: 190,
+    rating: 5,
+    badge: "Save 15%",
+    category: "flour",
+  },
+  {
+    id: "prod-almonds-nut",
+    slug: "almonds",
+    name: "Raw Almonds",
+    image: "/products/prod-almonds.webp",
+    price: 450,
+    oldPrice: 550,
+    rating: 5,
+    badge: "Save 18%",
+    category: "flour",
+  },
+
+  // Meat
+  {
+    id: "prod-chicken-fresh",
+    slug: "chicken",
+    name: "Fresh Chicken Breast",
+    image: "/products/prod-chicken.webp",
+    price: 320,
+    oldPrice: 450,
+    rating: 5,
+    badge: "Save 28%",
+    category: "meat",
+  },
+  {
+    id: "prod-meat-fresh",
+    slug: "chicken",
+    name: "Tender Red Meat",
+    image: "/products/prod-meat.webp",
+    price: 780,
+    oldPrice: 850,
+    rating: 5,
+    badge: "Save 10%",
+    category: "meat",
+  },
+
+  // Eggs & Milk
+  {
+    id: "prod-eggs-farm",
+    slug: "eggs",
+    name: "Country Brown Eggs",
+    image: "/shop/Shop-4.webp",
+    price: 145,
+    oldPrice: 165,
+    rating: 5,
+    badge: "Save 12%",
+    category: "eggs",
+  },
+  {
+    id: "prod-milk-bottle",
+    slug: "milk",
+    name: "Farm Pure Fresh Milk",
+    image: "/shop/Shop-4.webp",
+    price: 95,
+    oldPrice: 110,
+    rating: 5,
+    badge: "Save 14%",
+    category: "milk",
   },
 ];
 
 export default function OurProducts() {
-  const [activeCategory, setActiveCategory] = useState<string>("eggs");
+  const [activeCategory, setActiveCategory] = useState<string>("vegetables");
   const [addedItems, setAddedItems] = useState<Record<string, boolean>>({});
   const addItem = useCartStore((state) => state.addItem);
   const wishlistItems = useWishlistStore((state) => state.items);
@@ -138,41 +292,48 @@ export default function OurProducts() {
   const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(null);
   const [modalImage, setModalImage] = useState<string | null>(null);
 
-  const toggleWishlist = (id: string, e: React.MouseEvent) => {
+  // Filter products by selected watercolor category
+  const filteredProducts = PRODUCTS.filter((item) => item.category === activeCategory);
+  const displayedProducts = filteredProducts.length > 0 ? filteredProducts : PRODUCTS.slice(0, 6);
+
+  const toggleWishlist = (product: Product, e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    const product = PRODUCTS.find((item) => item.id === id);
-    if (product) {
-      toggleWishlistItem({
-        id: product.id,
-        name: product.name,
-        price: product.price,
-        image: product.image,
-        unit: "1 kg",
-        currency: "BDT",
-      });
-    }
+    toggleWishlistItem({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      image: product.image,
+      unit: "1 kg",
+      currency: "BDT",
+    });
   };
 
-  const handleAddToCart = (id: string, e: React.MouseEvent) => {
+  const handleAddToCart = (product: Product, e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    const product = PRODUCTS.find((item) => item.id === id);
-    if (product) addItem({ id: product.id, name: product.name, price: product.price, image: product.image, quantity: 1, currency: "BDT", unit: "1 kg" });
-    setAddedItems((prev) => ({ ...prev, [id]: true }));
+    addItem({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      image: product.image,
+      quantity: 1,
+      currency: "BDT",
+      unit: "1 kg",
+    });
+    setAddedItems((prev) => ({ ...prev, [product.id]: true }));
     setTimeout(() => {
-      setAddedItems((prev) => ({ ...prev, [id]: false }));
+      setAddedItems((prev) => ({ ...prev, [product.id]: false }));
     }, 1800);
   };
 
   return (
-    <section className="w-full py-10 sm:py-14">
+    <section className="w-full py-4 sm:py-6">
       {/* =========================================
-          1. SECTION HEADER (Playful organic style with leaf)
+          1. SECTION HEADER (Organic style with leaf)
          ========================================= */}
-      <div className="relative mb-10 sm:mb-12">
+      <div className="relative mb-8 sm:mb-12">
         <div className="text-center max-w-2xl mx-auto px-4">
-          {/* Decorative Leaf Graphic Watermark */}
           <div className="inline-flex items-center justify-center relative mb-1">
             <Leaf className="w-6 h-6 text-[#74B83E]/40 absolute -top-2 -right-4 rotate-12" />
             <h2 className="text-3xl sm:text-4xl md:text-[42px] font-extrabold text-[#74B83E] tracking-tight font-sans drop-shadow-2xs">
@@ -199,7 +360,7 @@ export default function OurProducts() {
       {/* =========================================
           2. WATERCOLOR CATEGORY BLOB FILTER
          ========================================= */}
-      <div className="w-full max-w-6xl mx-auto mb-12 sm:mb-14 px-2">
+      <div className="w-full max-w-6xl mx-auto mb-10 sm:mb-14 px-2">
         <div className="flex items-center justify-center gap-3 sm:gap-5 md:gap-7 lg:gap-8 flex-wrap">
           {CATEGORIES.map((cat) => {
             const isActive = activeCategory === cat.id;
@@ -212,7 +373,7 @@ export default function OurProducts() {
               >
                 {/* Watercolor Brush Circle Blob */}
                 <div
-                  className={`relative w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 lg:w-[132px] lg:h-[132px] flex flex-col items-center justify-center rounded-full transition-all duration-300 shadow-xs group-hover:scale-105 ${
+                  className={`relative w-22 h-22 sm:w-28 sm:h-28 md:w-32 md:h-32 lg:w-[130px] lg:h-[130px] flex flex-col items-center justify-center rounded-full transition-all duration-300 shadow-2xs group-hover:scale-105 ${
                     isActive
                       ? "bg-[#74B83E] text-white shadow-lg shadow-[#74B83E]/25 scale-105"
                       : `${cat.bgClass} text-zinc-800 hover:shadow-md`
@@ -222,7 +383,7 @@ export default function OurProducts() {
                   }}
                 >
                   {/* Line Art Icon */}
-                  <div className="relative w-9 h-9 sm:w-11 sm:h-11 md:w-12 md:h-12 lg:w-14 lg:h-14 mb-1 sm:mb-1.5">
+                  <div className="relative w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-13 lg:h-13 mb-1 sm:mb-1.5">
                     <Image
                       src={cat.icon}
                       alt={cat.name}
@@ -235,7 +396,7 @@ export default function OurProducts() {
 
                   {/* Category Label inside blob */}
                   <span
-                    className={`text-xs sm:text-sm md:text-[15px] font-bold tracking-tight transition-colors ${
+                    className={`text-[11px] sm:text-xs md:text-sm font-bold tracking-tight transition-colors text-center px-1 ${
                       isActive ? "text-white" : "text-zinc-800"
                     }`}
                   >
@@ -249,14 +410,12 @@ export default function OurProducts() {
       </div>
 
       {/* =========================================
-          3. PRODUCTS GRID (6 items matching screenshot)
+          3. PRODUCTS GRID (Responsive 2 to 6 columns)
          ========================================= */}
-      <div className="w-full max-w-[1680px] mx-auto px-2 sm:px-4">
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4 lg:gap-5">
-          {PRODUCTS.map((product) => {
-            const isWishlisted = wishlistItems.some(
-              (item) => item.id === product.id,
-            );
+      <div className="w-full">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4 lg:gap-5">
+          {displayedProducts.map((product) => {
+            const isWishlisted = wishlistItems.some((item) => item.id === product.id);
             const isAdded = !!addedItems[product.id];
 
             return (
@@ -264,7 +423,7 @@ export default function OurProducts() {
                 key={product.id}
                 className="group relative bg-white border border-zinc-200/80 hover:border-[#74B83E] rounded-2xl p-3 sm:p-4 flex flex-col justify-between transition-all duration-300 hover:shadow-xl hover:-translate-y-1 shadow-2xs"
               >
-                {/* Discount Badge ("Save 99%") */}
+                {/* Discount Badge */}
                 <div className="absolute top-2.5 left-2.5 z-10">
                   {product.badge && (
                     <span className="inline-block px-2 py-0.5 rounded-full text-[10px] font-bold text-white bg-red-600 shadow-xs">
@@ -275,7 +434,6 @@ export default function OurProducts() {
 
                 {/* Product Image Box with Hover Swap & Overlay Buttons */}
                 <div className="relative w-full aspect-square bg-white rounded-xl flex items-center justify-center p-2 mb-3 overflow-hidden">
-                  {/* Primary Image */}
                   <Image
                     src={product.image}
                     alt={product.name}
@@ -288,7 +446,6 @@ export default function OurProducts() {
                     }`}
                   />
 
-                  {/* Secondary/Alternate Hover Image */}
                   {product.hoverImage && (
                     <Image
                       src={product.hoverImage}
@@ -299,7 +456,7 @@ export default function OurProducts() {
                     />
                   )}
 
-                  {/* Hover Quick Action Buttons (Search/Zoom & Wishlist) */}
+                  {/* Hover Quick Action Buttons */}
                   <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center gap-2 z-10">
                     <button
                       type="button"
@@ -314,7 +471,7 @@ export default function OurProducts() {
                     </button>
                     <button
                       type="button"
-                      onClick={(e) => toggleWishlist(product.id, e)}
+                      onClick={(e) => toggleWishlist(product, e)}
                       className={`w-8 h-8 rounded-full flex items-center justify-center transition-all duration-200 shadow-md hover:scale-110 cursor-pointer ${
                         isWishlisted
                           ? "bg-red-500 text-white"
@@ -333,10 +490,11 @@ export default function OurProducts() {
 
                 {/* Product Information */}
                 <div className="text-center space-y-1.5 flex-1 flex flex-col justify-end">
-                  {/* Name */}
-                  <h3 className="font-bold text-sm sm:text-[15px] text-zinc-900 hover:text-[#74B83E] transition-colors truncate">
-                    {product.name}
-                  </h3>
+                  <Link href={`/products/${product.slug}`} className="block group/link">
+                    <h3 className="font-bold text-sm sm:text-[15px] text-zinc-900 group-hover/link:text-[#74B83E] transition-colors truncate">
+                      {product.name}
+                    </h3>
+                  </Link>
 
                   {/* 5 Golden Stars */}
                   <div className="flex items-center justify-center gap-0.5 text-amber-400">
@@ -364,7 +522,7 @@ export default function OurProducts() {
                   <div className="pt-2">
                     <button
                       type="button"
-                      onClick={(e) => handleAddToCart(product.id, e)}
+                      onClick={(e) => handleAddToCart(product, e)}
                       className={`w-full py-2 px-4 rounded-full text-xs font-bold transition-all duration-200 shadow-2xs flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 ${
                         isAdded
                           ? "bg-zinc-900 text-white"
@@ -396,7 +554,7 @@ export default function OurProducts() {
           <div className="relative w-full max-w-lg bg-white rounded-3xl p-6 shadow-2xl animate-in zoom-in-95 duration-200 border border-zinc-100">
             <button
               onClick={() => setQuickViewProduct(null)}
-              className="absolute top-4 right-4 p-1.5 rounded-full text-zinc-400 hover:text-zinc-700 hover:bg-zinc-100 transition-colors"
+              className="absolute top-4 right-4 p-1.5 rounded-full text-zinc-400 hover:text-zinc-700 hover:bg-zinc-100 transition-colors cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
@@ -457,9 +615,15 @@ export default function OurProducts() {
                     {quickViewProduct.badge}
                   </span>
                 )}
-                <h3 className="text-xl font-extrabold text-zinc-900">
-                  {quickViewProduct.name}
-                </h3>
+                <Link
+                  href={`/products/${quickViewProduct.slug}`}
+                  onClick={() => setQuickViewProduct(null)}
+                  className="hover:underline"
+                >
+                  <h3 className="text-xl font-extrabold text-zinc-900 hover:text-[#74B83E] transition-colors">
+                    {quickViewProduct.name}
+                  </h3>
+                </Link>
                 <div className="flex items-center justify-center sm:justify-start gap-1 text-amber-400">
                   {[...Array(5)].map((_, i) => (
                     <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
@@ -476,21 +640,28 @@ export default function OurProducts() {
                     </span>
                   )}
                 </div>
-                <p className="text-xs text-zinc-500">
+                <p className="text-xs text-zinc-500 leading-relaxed">
                   Fresh farm-picked organic grocery delivered directly to your doorstep within 2 hours.
                 </p>
 
                 <div className="pt-2 flex gap-3">
                   <button
                     onClick={(e) => {
-                      handleAddToCart(quickViewProduct.id, e);
+                      handleAddToCart(quickViewProduct, e);
                       setQuickViewProduct(null);
                     }}
-                    className="flex-1 py-2.5 px-5 rounded-full bg-[#74B83E] hover:bg-[#639f33] text-white text-xs font-bold transition-all shadow-xs flex items-center justify-center gap-2"
+                    className="flex-1 py-2.5 px-5 rounded-full bg-[#74B83E] hover:bg-[#639f33] text-white text-xs font-bold transition-all shadow-xs flex items-center justify-center gap-2 cursor-pointer active:scale-95"
                   >
                     <ShoppingCart className="w-4 h-4" />
                     <span>Add To Cart</span>
                   </button>
+                  <Link
+                    href={`/products/${quickViewProduct.slug}`}
+                    onClick={() => setQuickViewProduct(null)}
+                    className="py-2.5 px-4 rounded-full border border-zinc-200 text-zinc-700 hover:border-[#74B83E] hover:text-[#74B83E] text-xs font-bold transition-all text-center flex items-center justify-center"
+                  >
+                    Details
+                  </Link>
                 </div>
               </div>
             </div>

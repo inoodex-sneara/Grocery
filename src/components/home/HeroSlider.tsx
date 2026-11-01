@@ -142,7 +142,7 @@ export default function HeroSlider() {
         onTouchEnd={handleTouchEnd}
       >
         {/* Slides Track */}
-        <div className="relative w-full min-h-[220px] h-[240px] xs:h-[280px] sm:h-[380px] md:h-[480px] lg:h-[580px] xl:h-[660px]">
+        <div className="relative w-full min-h-[250px] h-[280px] xs:h-[320px] sm:h-[400px] md:h-[480px] lg:h-[560px] xl:h-[620px]">
           {SLIDES.map((slide, index) => {
             const isActive = index === currentSlide;
             return (
@@ -175,14 +175,14 @@ export default function HeroSlider() {
                         : "justify-end text-right sm:text-left"
                     }`}
                   >
-                    {/* Normal clean text layout - tailored so image food is clearly visible */}
+                    {/* Clean text layout */}
                     <div
                       className={`w-full ${
                         slide.align === "center"
-                          ? "max-w-[70%] sm:max-w-xl mx-auto"
+                          ? "max-w-[85%] sm:max-w-xl mx-auto"
                           : slide.align === "left"
-                          ? "max-w-[58%] sm:max-w-xl mr-auto sm:ml-0 text-left"
-                          : "max-w-[58%] sm:max-w-xl ml-auto sm:ml-0"
+                          ? "max-w-[70%] sm:max-w-xl mr-auto sm:ml-0 text-left"
+                          : "max-w-[70%] sm:max-w-xl ml-auto sm:ml-0"
                       } lg:max-w-2xl transition-all duration-700 delay-100 ${
                         isActive
                           ? "translate-y-0 opacity-100 scale-100"
@@ -191,10 +191,10 @@ export default function HeroSlider() {
                     >
                       {/* Main Heading */}
                       <h1
-                        className={`text-sm xs:text-base sm:text-2xl md:text-3xl lg:text-4xl xl:text-[44px] font-bold leading-snug sm:leading-[1.22] tracking-tight ${
+                        className={`text-base xs:text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-[44px] font-extrabold leading-tight sm:leading-[1.22] tracking-tight ${
                           slide.textColor === "light"
-                            ? "text-white"
-                            : "text-zinc-900"
+                            ? "text-white drop-shadow-md"
+                            : "text-zinc-900 drop-shadow-2xs"
                         }`}
                       >
                         {slide.title}
@@ -202,10 +202,10 @@ export default function HeroSlider() {
 
                       {/* Subtitle on mobile / Full description on desktop */}
                       <p
-                        className={`mt-2 sm:mt-4 md:mt-5 text-[11px] xs:text-xs sm:text-sm md:text-base leading-relaxed font-normal max-w-xl ${
+                        className={`mt-2 sm:mt-4 md:mt-5 text-[11px] xs:text-xs sm:text-sm md:text-base leading-relaxed font-medium max-w-xl ${
                           slide.textColor === "light"
-                            ? "text-emerald-50/90"
-                            : "text-zinc-600"
+                            ? "text-emerald-50/95"
+                            : "text-zinc-700"
                         }`}
                       >
                         <span className="sm:hidden">{slide.subtitle}</span>
@@ -224,7 +224,7 @@ export default function HeroSlider() {
                       >
                         <Link
                           href={slide.ctaLink}
-                          className={`inline-flex items-center gap-1.5 sm:gap-2 px-4 xs:px-5 sm:px-7 py-2 sm:py-3 rounded-full text-xs sm:text-sm font-semibold transition-all duration-150 cursor-pointer group/btn ${
+                          className={`inline-flex items-center gap-1.5 sm:gap-2 px-4 xs:px-5 sm:px-7 py-2 sm:py-3 rounded-full text-xs sm:text-sm font-bold transition-all duration-150 cursor-pointer group/btn ${
                             slide.textColor === "light"
                               ? "text-zinc-900 bg-white hover:bg-zinc-100 active:scale-95 shadow-md"
                               : "text-white bg-[#74B83E] hover:bg-[#639f33] active:scale-95 shadow-xs"
@@ -243,31 +243,39 @@ export default function HeroSlider() {
           })}
         </div>
 
-        {/* Floating Animated Vegetable Basket (Enlarged size, Top-Bottom Float Animation) */}
-        <div className="absolute right-2 xs:right-4 sm:right-6 md:right-10 lg:right-16 xl:right-24 2xl:right-32 bottom-4 sm:bottom-8 md:bottom-10 lg:bottom-14 xl:bottom-16 2xl:bottom-20 z-25 pointer-events-none select-none">
-          {/* Basket Image with Up-Down Floating Animation */}
-          <div className="relative animate-float-basket">
-            <div className="relative w-32 xs:w-40 sm:w-56 md:w-72 lg:w-[350px] xl:w-[420px] 2xl:w-[460px] aspect-[1343/1171] drop-shadow-[0_20px_35px_rgba(0,0,0,0.25)]">
-              <Image
-                src="/products/fresh-vegetable-basket.png"
-                alt="Fresh Vegetable Basket"
-                fill
-                sizes="(max-width: 640px) 160px, (max-width: 1024px) 288px, (max-width: 1280px) 350px, 460px"
-                className="object-contain"
-                priority
-              />
+        {/* Floating Animated Vegetable Basket (Positioned on the OPPOSITE side of slide text so they never collide!) */}
+        {SLIDES[currentSlide]?.align !== "center" && (
+          <div
+            className={`hidden sm:block absolute ${
+              SLIDES[currentSlide]?.align === "right"
+                ? "left-6 md:left-12 lg:left-20 xl:left-28"
+                : "right-6 md:right-12 lg:right-20 xl:right-28"
+            } bottom-4 sm:bottom-6 md:bottom-8 lg:bottom-12 z-20 pointer-events-none select-none transition-all duration-700`}
+          >
+            {/* Basket Image with Up-Down Floating Animation */}
+            <div className="relative animate-float-basket">
+              <div className="relative w-36 sm:w-48 md:w-60 lg:w-[320px] xl:w-[360px] aspect-[1343/1171] drop-shadow-[0_20px_35px_rgba(0,0,0,0.22)]">
+                <Image
+                  src="/products/fresh-vegetable-basket.png"
+                  alt="Fresh Vegetable Basket"
+                  fill
+                  sizes="(max-width: 768px) 192px, (max-width: 1024px) 240px, 360px"
+                  className="object-contain"
+                  priority
+                />
+              </div>
+
+              {/* Organic Floating Badge */}
+              <div className="flex absolute -top-1.5 -left-1.5 sm:-top-2.5 sm:-left-2.5 bg-white/95 backdrop-blur-xs border border-emerald-100 shadow-md px-2 py-0.5 sm:py-1 rounded-full items-center gap-1 text-[9px] sm:text-[11px] font-bold text-emerald-800">
+                <span>🌱</span>
+                <span>100% Fresh</span>
+              </div>
             </div>
 
-            {/* Organic Floating Badge */}
-            <div className="hidden xs:flex absolute -top-1.5 -left-1.5 sm:-top-3 sm:-left-3 lg:-top-3.5 lg:-left-3.5 bg-white/95 backdrop-blur-xs border border-emerald-100 shadow-md px-1.5 sm:px-2.5 lg:px-3 py-0.5 sm:py-1 rounded-full items-center gap-1 text-[9px] sm:text-[11px] lg:text-xs font-bold text-emerald-800">
-              <span className="text-xs sm:text-sm">🌱</span>
-              <span>100% Fresh</span>
-            </div>
+            {/* Dynamic Ground Shadow */}
+            <div className="w-24 sm:w-32 md:w-44 lg:w-56 h-2.5 sm:h-3.5 bg-black/20 blur-xs rounded-full mx-auto mt-1 animate-shadow-pulse" />
           </div>
-
-          {/* Dynamic Ground Shadow that breathes as basket moves up/down */}
-          <div className="w-20 xs:w-28 sm:w-40 md:w-52 lg:w-64 xl:w-[300px] 2xl:w-[330px] h-2.5 sm:h-4 md:h-5 bg-black/25 blur-xs rounded-full mx-auto mt-1 sm:mt-1.5 animate-shadow-pulse" />
-        </div>
+        )}
 
         {/* Navigation Arrow Left (Responsive sizing & placement) */}
         <button

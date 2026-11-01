@@ -2,12 +2,14 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { Star, Search, Heart, ShoppingCart, X, Check } from "lucide-react";
 import { useCartStore } from "@/store/cartStore";
 import { useWishlistStore } from "@/store/wishlistStore";
 
 interface SpecialProduct {
   id: string;
+  slug?: string;
   name: string;
   price: number;
   oldPrice?: number;
@@ -21,6 +23,7 @@ interface SpecialProduct {
 const SPECIAL_PRODUCTS: SpecialProduct[] = [
   {
     id: "sp-watermelon",
+    slug: "watermelon",
     name: "Watermelon",
     price: 180,
     oldPrice: 220,
@@ -31,6 +34,7 @@ const SPECIAL_PRODUCTS: SpecialProduct[] = [
   },
   {
     id: "sp-tomato",
+    slug: "tomato",
     name: "Tomato",
     price: 60,
     oldPrice: 85,
@@ -41,6 +45,7 @@ const SPECIAL_PRODUCTS: SpecialProduct[] = [
   },
   {
     id: "sp-coriander",
+    slug: "coriander",
     name: "Coriander",
     price: 30,
     oldPrice: 45,
@@ -51,6 +56,7 @@ const SPECIAL_PRODUCTS: SpecialProduct[] = [
   },
   {
     id: "sp-egg",
+    slug: "eggs",
     name: "Egg",
     price: 145,
     oldPrice: 165,
@@ -62,6 +68,7 @@ const SPECIAL_PRODUCTS: SpecialProduct[] = [
   },
   {
     id: "sp-chicken",
+    slug: "chicken",
     name: "Chicken Breast",
     price: 320,
     oldPrice: 450,
@@ -73,6 +80,7 @@ const SPECIAL_PRODUCTS: SpecialProduct[] = [
   },
   {
     id: "sp-badam",
+    slug: "almonds",
     name: "Badam",
     price: 280,
     oldPrice: 350,
@@ -84,6 +92,7 @@ const SPECIAL_PRODUCTS: SpecialProduct[] = [
   },
   {
     id: "sp-cookies",
+    slug: "cookies",
     name: "Nuts Cookies",
     price: 120,
     image: "/products/prod-cookies.webp",
@@ -92,6 +101,7 @@ const SPECIAL_PRODUCTS: SpecialProduct[] = [
   },
   {
     id: "sp-rice",
+    slug: "rice",
     name: "TM Rice",
     price: 160,
     image: "/products/prod-rice.webp",
@@ -100,6 +110,7 @@ const SPECIAL_PRODUCTS: SpecialProduct[] = [
   },
   {
     id: "sp-mushroom",
+    slug: "cucumber",
     name: "Flower Mushroom",
     price: 120,
     oldPrice: 150,
@@ -145,7 +156,7 @@ export default function SpecialProducts() {
   };
 
   return (
-    <section className="w-full pt-4 pb-12">
+    <section className="w-full py-4 sm:py-6">
       {/* =========================================
           SECTION HEADER WITH LEAF DECORATION
          ========================================= */}
@@ -269,9 +280,15 @@ export default function SpecialProducts() {
                  ========================================= */}
               <div className="flex-1 min-w-0 flex flex-col justify-center">
                 {/* Product Name */}
-                <h3 className="text-sm sm:text-base font-bold text-zinc-900 group-hover:text-[#74B83E] transition-colors truncate">
-                  {product.name}
-                </h3>
+                <Link
+                  href={`/products/${product.slug || "beetroot"}`}
+                  onClick={(e) => e.stopPropagation()}
+                  className="block"
+                >
+                  <h3 className="text-sm sm:text-base font-bold text-zinc-900 hover:text-[#74B83E] transition-colors truncate">
+                    {product.name}
+                  </h3>
+                </Link>
 
                 {/* Star Rating (5 Gold Stars) */}
                 <div className="flex items-center gap-0.5 text-amber-400 mt-1 mb-1.5">
@@ -361,9 +378,15 @@ export default function SpecialProducts() {
                     {quickViewProduct.badge}
                   </span>
                 )}
-                <h3 className="text-xl font-extrabold text-zinc-900">
-                  {quickViewProduct.name}
-                </h3>
+                <Link
+                  href={`/products/${quickViewProduct.slug || "beetroot"}`}
+                  onClick={() => setQuickViewProduct(null)}
+                  className="hover:underline block"
+                >
+                  <h3 className="text-xl font-extrabold text-zinc-900 hover:text-[#74B83E] transition-colors">
+                    {quickViewProduct.name}
+                  </h3>
+                </Link>
                 <div className="flex items-center justify-center sm:justify-start gap-1 text-amber-400">
                   {[...Array(5)].map((_, i) => (
                     <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />

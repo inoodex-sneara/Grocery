@@ -2,7 +2,8 @@
 import { useCartStore } from "@/store/cartStore";
 import { useWishlistStore } from "@/store/wishlistStore";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import {
   ShoppingCart,
@@ -160,7 +161,22 @@ const CATEGORIES = [
 ] as const;
 
 export default function ShopPage() {
-  const [selectedCategory, setSelectedCategory] = useState<string>("All");
+  return (
+    <Suspense fallback={null}>
+      <ShopPageContent />
+    </Suspense>
+  );
+}
+
+function ShopPageContent() {
+  const searchParams = useSearchParams();
+  const [selectedCategory, setSelectedCategory] = useState<string>(() => {
+    const initialCategory = searchParams.get("category");
+    if (initialCategory && CATEGORIES.includes(initialCategory as (typeof CATEGORIES)[number])) {
+      return initialCategory;
+    }
+    return "All";
+  });
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [priceRange, setPriceRange] = useState<"all" | "under-100" | "100-250" | "above-250">("all");
   const [minRating, setMinRating] = useState<number>(0);
@@ -174,6 +190,15 @@ export default function ShopPage() {
     rating: false,
     availability: false,
   });
+
+  useEffect(() => {
+    const categoryFromUrl = searchParams.get("category");
+    if (categoryFromUrl && CATEGORIES.includes(categoryFromUrl as (typeof CATEGORIES)[number])) {
+      setSelectedCategory(categoryFromUrl);
+      return;
+    }
+    setSelectedCategory("All");
+  }, [searchParams]);
 
   const toggleSection = (section: string) => {
     setCollapsedSections((prev) => ({

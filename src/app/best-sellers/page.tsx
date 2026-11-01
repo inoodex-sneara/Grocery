@@ -40,19 +40,82 @@ export default function BestSellersPage() {
         </div>
 
         <div className="grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-4">
-          {bestSellers.map((product,index)=>(<article key={product.slug} className="group overflow-hidden rounded-[1.5rem] border border-[#e9eee4] bg-white shadow-[0_10px_35px_-28px_rgba(24,53,30,.3)] transition duration-300 hover:-translate-y-1 hover:border-[#cfe3bf] hover:shadow-[0_22px_45px_-28px_rgba(24,53,30,.3)]">
-            <div className="relative m-2.5 aspect-square overflow-hidden rounded-[1.1rem] bg-[#f5f8f1] sm:m-3">
-              <div className="absolute left-3 top-3 z-10 inline-flex items-center gap-1 rounded-full bg-white/90 px-2.5 py-1 text-[10px] font-bold text-[#477b2e] shadow-sm"><BadgeCheck className="h-3.5 w-3.5"/>{index<3?"Top pick":"Fresh pick"}</div>
-              <Image src={product.image} alt={product.name} fill sizes="(max-width: 640px) 45vw, (max-width: 1024px) 30vw, 260px" className="object-contain p-5 transition duration-500 group-hover:scale-105 sm:p-7" />
-              <span className="absolute bottom-3 right-3 rounded-full bg-white/90 px-2.5 py-1 text-[11px] font-bold text-zinc-600 shadow-sm">{product.type}</span>
-            </div>
-            <div className="px-4 pb-4 pt-1 sm:px-5 sm:pb-5">
-              <div className="flex items-center justify-between gap-2"><div className="flex items-center gap-1 text-amber-400"><Star className="h-3.5 w-3.5 fill-current"/><span className="text-xs font-bold text-zinc-700">{product.rating.toFixed(1)}</span></div><span className="text-[11px] text-zinc-400">{product.reviewCount} reviews</span></div>
-              <h3 className="mt-2 truncate text-base font-extrabold text-[#203b25] sm:text-lg">{product.name}</h3>
-              <p className="mt-1 line-clamp-2 min-h-10 text-xs leading-5 text-zinc-500">{product.description}</p>
-              <div className="mt-4 flex items-center justify-between gap-2 border-t border-zinc-100 pt-3"><div className="flex items-baseline gap-2"><span className="text-lg font-black text-[#5b9e31]">${product.price.toFixed(2)}</span>{product.originalPrice&&<span className="text-xs text-zinc-400 line-through">${product.originalPrice.toFixed(2)}</span>}</div><Link href="/shop" className="inline-flex items-center gap-1 rounded-full bg-[#74b83e] px-3.5 py-2 text-xs font-bold text-white transition hover:bg-[#639f33] sm:px-4">Shop <ArrowRight className="h-3.5 w-3.5"/></Link></div>
-            </div>
-          </article>))}
+          {bestSellers.map((product, index) => (
+            <article
+              key={product.slug}
+              className="group overflow-hidden rounded-[1.5rem] border border-[#e9eee4] bg-white shadow-[0_10px_35px_-28px_rgba(24,53,30,.3)] transition duration-300 hover:-translate-y-1 hover:border-[#cfe3bf] hover:shadow-[0_22px_45px_-28px_rgba(24,53,30,.3)] flex flex-col justify-between"
+            >
+              <div>
+                <Link
+                  href={`/products/${product.slug}`}
+                  className="relative m-2.5 block aspect-square overflow-hidden rounded-[1.1rem] bg-[#f5f8f1] sm:m-3"
+                >
+                  <div className="absolute left-3 top-3 z-10 inline-flex items-center gap-1 rounded-full bg-white/90 px-2.5 py-1 text-[10px] font-bold text-[#477b2e] shadow-sm">
+                    <BadgeCheck className="h-3.5 w-3.5" />
+                    {index < 3 ? "Top pick" : "Fresh pick"}
+                  </div>
+                  <Image
+                    src={product.image}
+                    alt={product.name}
+                    fill
+                    sizes="(max-width: 640px) 45vw, (max-width: 1024px) 30vw, 260px"
+                    className="object-contain p-5 transition duration-500 group-hover:scale-105 sm:p-7"
+                  />
+                  <span className="absolute bottom-3 right-3 rounded-full bg-white/90 px-2.5 py-1 text-[11px] font-bold text-zinc-600 shadow-sm">
+                    {product.type}
+                  </span>
+                </Link>
+
+                <div className="px-4 pb-2 pt-1 sm:px-5">
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-1 text-amber-400">
+                      <Star className="h-3.5 w-3.5 fill-current" />
+                      <span className="text-xs font-bold text-zinc-700">
+                        {product.rating.toFixed(1)}
+                      </span>
+                    </div>
+                    <span className="text-[11px] text-zinc-400">
+                      {product.reviewCount} reviews
+                    </span>
+                  </div>
+
+                  <h3 className="mt-2 truncate text-base font-extrabold text-[#203b25] sm:text-lg">
+                    <Link
+                      href={`/products/${product.slug}`}
+                      className="hover:text-[#74b83e] transition-colors"
+                    >
+                      {product.name}
+                    </Link>
+                  </h3>
+                  <p className="mt-1 line-clamp-2 text-xs leading-5 text-zinc-500">
+                    {product.description}
+                  </p>
+                </div>
+              </div>
+
+              <div className="px-4 pb-4 sm:px-5 sm:pb-5">
+                <div className="mt-4 flex items-center justify-between gap-2 border-t border-zinc-100 pt-3">
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-lg font-black text-[#5b9e31]">
+                      ${product.price.toFixed(2)}
+                    </span>
+                    {product.originalPrice && (
+                      <span className="text-xs text-zinc-400 line-through">
+                        ${product.originalPrice.toFixed(2)}
+                      </span>
+                    )}
+                  </div>
+                  <Link
+                    href={`/products/${product.slug}`}
+                    className="inline-flex items-center gap-1 rounded-full bg-[#74b83e] px-3.5 py-2 text-xs font-bold text-white transition hover:bg-[#639f33] sm:px-4"
+                  >
+                    <span>View</span>
+                    <ArrowRight className="h-3.5 w-3.5" />
+                  </Link>
+                </div>
+              </div>
+            </article>
+          ))}
         </div>
       </section>
       <section className="mx-5 mb-14 rounded-[1.5rem] bg-[#1d3b24] px-6 py-8 text-center text-white sm:mx-8 sm:mb-20 sm:py-10"><p className="text-lg font-bold">Your next favorite is waiting.</p><p className="mt-1 text-sm text-white/70">Browse the full range of fresh groceries.</p><Link href="/shop" className="mt-5 inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-bold text-[#315a2a] transition hover:bg-[#eef7e7]">Shop all products <ArrowRight className="h-4 w-4"/></Link></section>

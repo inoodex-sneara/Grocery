@@ -169,7 +169,42 @@ export default function ConfirmationPage() {
                 {order.customer.country}
               </p>
             </div>
+            {order.billingAddress && (
+              <div>
+                <h2 className="text-xs font-bold uppercase tracking-wider text-zinc-400">
+                  Billing address
+                </h2>
+                <p className="mt-3 text-sm leading-6 text-zinc-700">
+                  {order.billingAddress.firstName}{" "}
+                  {order.billingAddress.lastName}
+                  <br />
+                  {order.billingAddress.address}
+                  {order.billingAddress.apartment && (
+                    <>
+                      <br />
+                      {order.billingAddress.apartment}
+                    </>
+                  )}
+                  <br />
+                  {order.billingAddress.city},{" "}
+                  {order.billingAddress.postalCode}
+                  <br />
+                  {order.billingAddress.country}
+                </p>
+              </div>
+            )}
           </section>
+
+          {order.notes && (
+            <section className="border-b border-zinc-200 px-6 py-5 sm:px-10">
+              <h2 className="text-xs font-bold uppercase tracking-wider text-zinc-400">
+                Special notes
+              </h2>
+              <p className="mt-2 whitespace-pre-wrap text-sm text-zinc-700">
+                {order.notes}
+              </p>
+            </section>
+          )}
 
           <section className="p-6 sm:p-10">
             <div className="mb-4 flex items-center gap-2">

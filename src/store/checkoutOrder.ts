@@ -10,6 +10,16 @@ export const checkoutPaymentMethods = [
 
 export type CheckoutPaymentMethod = (typeof checkoutPaymentMethods)[number];
 
+export interface CheckoutAddress {
+  firstName: string;
+  lastName: string;
+  country: string;
+  address: string;
+  apartment: string;
+  city: string;
+  postalCode: string;
+}
+
 export interface CheckoutOrder {
   id: string;
   createdAt: string;
@@ -19,6 +29,8 @@ export interface CheckoutOrder {
   total: number;
   currency: CartCurrency;
   paymentMethod: CheckoutPaymentMethod;
+  billingAddress?: CheckoutAddress;
+  notes?: string;
   customer: {
     email: string;
     firstName: string;
@@ -66,6 +78,18 @@ function isCheckoutOrder(value: unknown): value is CheckoutOrder {
     "postalCode",
     "phone",
   ] as const;
+  const addressFields = [
+    "firstName",
+    "lastName",
+    "country",
+    "address",
+    "apartment",
+    "city",
+    "postalCode",
+  ] as const;
+  const isCheckoutAddress = (address: unknown): address is CheckoutAddress =>
+    isRecord(address) &&
+    addressFields.every((field) => typeof address[field] === "string");
 
   return (
     typeof value.id === "string" &&
@@ -92,7 +116,10 @@ function isCheckoutOrder(value: unknown): value is CheckoutOrder {
     Number.isFinite(value.total) &&
     (value.currency === "USD" || value.currency === "BDT") &&
     checkoutPaymentMethods.some((method) => method === value.paymentMethod) &&
-    customerFields.every((field) => typeof customer[field] === "string")
+    customerFields.every((field) => typeof customer[field] === "string") &&
+    (value.billingAddress === undefined ||
+      isCheckoutAddress(value.billingAddress)) &&
+    (value.notes === undefined || typeof value.notes === "string")
   );
 }
 

@@ -7,7 +7,7 @@ import { BLOG_POSTS } from "@/data/blogData";
 
 export default function LatestNews() {
   return (
-    <section className="w-full py-10 sm:py-14">
+    <section className="w-full py-4 sm:py-8">
       {/* =========================================
           SECTION HEADER WITH DELICATE LEAF WATERMARK
          ========================================= */}

@@ -5,6 +5,7 @@ export interface Product {
   originalPrice?: number;
   image: string;
   hoverImage?: string;
+  gallery?: string[];
   badge?: string;
   badgeColor?: string;
   rating: number;
@@ -27,6 +28,12 @@ export const PRODUCTS: Product[] = [
     price: 1.24,
     image: "/products/prod-beetroot.webp",
     hoverImage: "/products/prod-beetroot-hover.jpg",
+    gallery: [
+      "/products/prod-beetroot.webp",
+      "/products/prod-beetroot-hover.jpg",
+      "/products/prod-beetroot-3.webp",
+      "/products/prod-beetroot-4.webp",
+    ],
     badge: "Best Seller",
     badgeColor: "#74B83E",
     rating: 4,
@@ -170,7 +177,7 @@ export const PRODUCTS: Product[] = [
     slug: "chicken",
     name: "Fresh Chicken",
     price: 4.99,
-    image: "/products/prod-chicken.webp",
+    image: "/products/fresh-chicken-clean.webp",
     badge: "Best Seller",
     badgeColor: "#74B83E",
     rating: 4,
@@ -211,6 +218,150 @@ export const PRODUCTS: Product[] = [
     environment:
       "Sustainable rice farming practices include water-saving techniques like alternate wetting and drying, which can reduce water use by up to 30% while maintaining yield quality.",
     viewCount: 38,
+  },
+  {
+    slug: "meat",
+    name: "Tender Red Meat",
+    price: 7.8,
+    originalPrice: 8.5,
+    image: "/products/tender-red-meat.webp",
+    badge: "Sale",
+    badgeColor: "#ef4444",
+    rating: 5,
+    reviewCount: 29,
+    vendor: "FarmFresh",
+    type: "Meat",
+    sizes: ["500 g", "1 kg", "2 kg"],
+    richIn: ["Protein", "Iron", "Zinc", "Vitamin B12"],
+    description:
+      "Freshly cut tender red meat, perfectly trimmed and packaged under strict hygienic conditions. Ideal for steaks, stews, and traditional curries.",
+    overview:
+      "Grass-fed organic farm fresh meat, free from artificial growth hormones and preservatives. Rich in flavor and essential nutrients.",
+    healthBenefits:
+      "Excellent source of high-quality protein and bioavailable heme iron, essential for muscle building, energy metabolism, and oxygen transport.",
+    environment:
+      "Raised with ethical animal welfare and sustainable grazing practices that prevent soil degradation.",
+    viewCount: 42,
+  },
+  {
+    slug: "buckwheat",
+    name: "Whole Buckwheat",
+    price: 1.95,
+    originalPrice: 2.4,
+    image: "/shop/Shop-26_7b8fa6d5-1a3c-42f9-ae94-02b6fcbb4263.webp",
+    badge: "Organic",
+    badgeColor: "#74B83E",
+    rating: 5,
+    reviewCount: 16,
+    vendor: "GrainMaster",
+    type: "Grain",
+    sizes: ["500 g", "1 kg", "2 kg"],
+    richIn: ["Fiber", "Magnesium", "Antioxidants", "Copper"],
+    description:
+      "Naturally gluten-free organic whole buckwheat groats with an earthy, nutty taste. Great for porridge, grain bowls, and healthy baking.",
+    overview:
+      "Buckwheat is a pseudocereal known for its high mineral and antioxidant content, widely used in wholesome wellness diets.",
+    healthBenefits:
+      "Helps improve blood sugar control, supports heart health, and aids digestion with high soluble and insoluble fiber.",
+    environment:
+      "Grown as a beneficial cover crop that suppresses weeds naturally and protects topsoil against erosion.",
+    viewCount: 24,
+  },
+  {
+    slug: "lentils",
+    name: "Natural Brown Lentils",
+    price: 1.4,
+    originalPrice: 1.75,
+    image: "/shop/Shop-28.webp",
+    badge: "Best Seller",
+    badgeColor: "#74B83E",
+    rating: 5,
+    reviewCount: 38,
+    vendor: "NatureFresh",
+    type: "Grain",
+    sizes: ["500 g", "1 kg", "2 kg"],
+    richIn: ["Plant Protein", "Folate", "Iron", "Potassium"],
+    description:
+      "Earthy, wholesome natural brown lentils harvested fresh from sustainable farms. Quick-cooking and essential for healthy daals and soups.",
+    overview:
+      "Lentils are one of the oldest cultivated legumes in human history, packed with nutrition and culinary adaptability.",
+    healthBenefits:
+      "Rich in polyphenols and prebiotic fibers that reduce inflammation, stabilize blood pressure, and nourish gut flora.",
+    environment:
+      "Legumes fix atmospheric nitrogen directly into the soil, reducing the need for chemical fertilizers.",
+    viewCount: 31,
+  },
+  {
+    slug: "onion",
+    name: "Deshi Red Onion",
+    price: 0.75,
+    originalPrice: 0.95,
+    image: "/products/prod-onion.webp",
+    badge: "Best Seller",
+    badgeColor: "#74B83E",
+    rating: 5,
+    reviewCount: 62,
+    vendor: "Local Organic Farm",
+    type: "Vegetable",
+    sizes: ["500 g", "1 kg", "2 kg", "5 kg"],
+    richIn: ["Quercetin", "Vitamin C", "Folate", "Potassium"],
+    description:
+      "Crisp, pungent Deshi red onions harvested fresh daily. Adds essential depth, flavor, and rich aroma to curries, stews, and daily cooking.",
+    overview:
+      "Onions are a staple allium vegetable cultivated worldwide for their culinary versatility and natural health benefits. Our organic local onions are grown without synthetic chemicals.",
+    healthBenefits:
+      "Rich in quercetin and sulfur compounds that promote heart health, fight bacterial infections, and regulate blood glucose levels.",
+    environment:
+      "Locally harvested onions support sustainable farm practices and significantly reduce transportation emissions.",
+    viewCount: 62,
+  },
+  {
+    slug: "garlic",
+    name: "Fresh Whole Garlic",
+    price: 1.6,
+    originalPrice: 1.9,
+    image: "/products/prod-garlic.webp",
+    badge: "Hot",
+    badgeColor: "#f97316",
+    rating: 5,
+    reviewCount: 35,
+    vendor: "NatureFresh",
+    type: "Vegetable",
+    sizes: ["250 g", "500 g", "1 kg"],
+    richIn: ["Allicin", "Vitamin B6", "Manganese", "Selenium"],
+    description:
+      "Fresh, tight-skinned organic garlic bulbs with pungent aroma and robust medicinal potency. A kitchen powerhouse for seasoning and immunity.",
+    overview:
+      "Garlic (Allium sativum) has been used for centuries across culinary and medicinal traditions for its distinctive flavor and antimicrobial properties.",
+    healthBenefits:
+      "Packed with allicin, an active compound renowned for lowering blood pressure, reducing cholesterol, and bolstering immunity against seasonal illnesses.",
+    environment:
+      "Cultivated with organic composting and companion planting, preserving topsoil biodiversity and natural pest control.",
+    viewCount: 45,
+  },
+  {
+    slug: "chilli",
+    name: "Fresh Green Chilli",
+    price: 0.4,
+    originalPrice: 0.6,
+    image: "/products/668d1a336465c458a3e0fda7_Kacha-Morich-Chilli-Green_1.webp",
+    badge: "Sale",
+    badgeColor: "#ef4444",
+    rating: 5,
+    reviewCount: 48,
+    vendor: "FarmFresh",
+    type: "Vegetable",
+    sizes: ["100 g", "250 g", "500 g"],
+    richIn: ["Capsaicin", "Vitamin C", "Vitamin A", "Iron"],
+    description:
+      "Bright green, fiery hot chillies handpicked for peak crispness. Packed with vitamin C and fiery natural heat.",
+    overview:
+      "Fresh green chillies are essential to South Asian cooking, providing vibrant color, piquant heat, and a metabolic boost.",
+    healthBenefits:
+      "Contains high levels of capsaicin that stimulate metabolism, release endorphins, and provide potent antioxidant support.",
+    environment:
+      "Grown by partner farmers using chemical-free IPM (Integrated Pest Management) techniques.",
+    viewCount: 52,
   },
 ];
 
