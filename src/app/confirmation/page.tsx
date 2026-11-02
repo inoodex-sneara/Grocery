@@ -15,13 +15,7 @@ import {
   parseCheckoutOrder,
   subscribeToCheckoutOrder,
 } from "@/store/checkoutOrder";
-
-const money = (amount: number, currency: "USD" | "BDT") =>
-  new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency,
-    maximumFractionDigits: 2,
-  }).format(amount);
+import { formatTaka } from "@/lib/currency";
 
 const paymentNames = {
   bkash: "bKash",
@@ -248,13 +242,13 @@ export default function ConfirmationPage() {
                         </div>
                       </td>
                       <td className="px-4 py-4 text-right text-zinc-600">
-                        {money(item.price, item.currency)}
+                        {formatTaka(item.price)}
                       </td>
                       <td className="px-4 py-4 text-right text-zinc-600">
                         {item.quantity}
                       </td>
                       <td className="py-4 pl-4 text-right font-semibold text-zinc-900">
-                        {money(item.price * item.quantity, item.currency)}
+                        {formatTaka(item.price * item.quantity)}
                       </td>
                     </tr>
                   ))}
@@ -265,15 +259,15 @@ export default function ConfirmationPage() {
             <div className="ml-auto mt-6 max-w-sm space-y-3 text-sm">
               <div className="flex justify-between gap-4 text-zinc-600">
                 <span>Subtotal</span>
-                <span>{money(order.subtotal, order.currency)}</span>
+                <span>{formatTaka(order.subtotal)}</span>
               </div>
               <div className="flex justify-between gap-4 text-zinc-600">
                 <span>Shipping</span>
-                <span>{money(order.shipping, order.currency)}</span>
+                <span>{formatTaka(order.shipping)}</span>
               </div>
               <div className="flex justify-between gap-4 border-t border-zinc-200 pt-4 text-base font-bold text-zinc-900">
                 <span>Total</span>
-                <span>{money(order.total, order.currency)}</span>
+                <span>{formatTaka(order.total)}</span>
               </div>
             </div>
 

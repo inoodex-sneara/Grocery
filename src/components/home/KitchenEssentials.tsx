@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Star, Search, Heart, Check, X, ShoppingCart } from "lucide-react";
+import { Star, Search, Heart, Check, X, ShoppingCart, ArrowRight } from "lucide-react";
 import { useCartStore } from "@/store/cartStore";
 import { useWishlistStore } from "@/store/wishlistStore";
 
@@ -60,6 +60,41 @@ const ESSENTIAL_ITEMS: EssentialProduct[] = [
       "Fresh, tight-skinned organic garlic bulbs with pungent aroma and robust medicinal potency. A kitchen powerhouse for seasoning and immunity.",
     unit: "500g pack",
   },
+  {
+    id: "prod-tomato",
+    slug: "tomato",
+    name: "Fresh Tomato",
+    image: "/products/prod-tomato.webp",
+    price: 99,
+    oldPrice: 149,
+    rating: 4,
+    badge: "Save 34%",
+    description:
+      "Sun-ripened tomatoes bursting with flavor, perfect for sauces, salads, and everyday cooking.",
+    unit: "1 kg pack",
+  },
+  {
+    id: "prod-cucumber",
+    slug: "cucumber",
+    name: "Cucumber",
+    image: "/products/prod-cucumber.webp",
+    price: 75,
+    rating: 4,
+    description:
+      "Cool, crisp and refreshing cucumbers, perfect for salads, sandwiches, and snacking.",
+    unit: "500g pack",
+  },
+  {
+    id: "prod-coriander",
+    slug: "coriander",
+    name: "Coriander",
+    image: "/products/prod-coriander.png",
+    price: 49,
+    rating: 5,
+    description:
+      "Fresh, aromatic coriander leaves with rich green color and intense fragrance.",
+    unit: "100g pack",
+  },
 ];
 
 export default function KitchenEssentials() {
@@ -103,30 +138,39 @@ export default function KitchenEssentials() {
   };
 
   return (
-    <section aria-labelledby="kitchen-essentials-heading" className="w-full py-4 sm:py-6">
+    <section aria-labelledby="new-arrivals-heading" className="w-full py-4 sm:py-6">
       {/* =========================================
-          SECTION HEADER
+          SECTION HEADER (Left Aligned)
          ========================================= */}
-      <div className="relative text-center max-w-2xl mx-auto mb-8 sm:mb-10 px-4">
-        <span className="text-xs sm:text-sm font-extrabold text-[#74B83E] tracking-widest uppercase mb-1 block">
-          Kitchen Essentials
-        </span>
-        <h2
-          id="kitchen-essentials-heading"
-          className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-zinc-900 tracking-tight"
+      <div className="mb-4 sm:mb-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-zinc-100 pb-3 sm:pb-4">
+        <div>
+          <span className="text-xs sm:text-sm font-extrabold text-[#74B83E] tracking-widest uppercase mb-1 block">
+            New Arrivals
+          </span>
+          <h2
+            id="new-arrivals-heading"
+            className="text-2xl sm:text-3xl font-extrabold text-zinc-900 tracking-tight"
+          >
+            Fresh Picks, Just In
+          </h2>
+          <p className="mt-1 text-xs sm:text-sm text-zinc-500">
+            Discover our latest additions ({ESSENTIAL_ITEMS.length} items)
+          </p>
+        </div>
+        <Link
+          href="/shop"
+          className="inline-flex shrink-0 items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-bold text-[#74B83E] hover:bg-[#ecf7e6] transition-colors self-start sm:self-auto"
         >
-          Chilli, Onion &amp; Garlic
-        </h2>
-        <p className="text-xs sm:text-sm text-zinc-500 font-normal mt-2 leading-relaxed">
-          Everyday essentials for your kitchen.
-        </p>
+          <span>View All</span>
+          <ArrowRight className="h-3.5 w-3.5" />
+        </Link>
       </div>
 
       {/* =========================================
-          3 PRODUCTS GRID (Matching OurProducts Card Style)
+          PRODUCTS GRID (Full Width, Left-to-Right)
          ========================================= */}
-      <div className="w-full max-w-4xl px-4">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
+      <div className="w-full">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4 lg:gap-5">
           {ESSENTIAL_ITEMS.map((product) => {
             const isWishlisted = wishlistItems.some((item) => item.id === product.id);
             const isAdded = !!addedItems[product.id];

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { formatTaka } from "@/lib/currency";
 import { ArrowRight, BadgeCheck, Leaf, Sparkles, Star } from "lucide-react";
 import { PRODUCTS } from "@/data/productsData";
 
@@ -97,11 +98,11 @@ export default function BestSellersPage() {
                 <div className="mt-4 flex items-center justify-between gap-2 border-t border-zinc-100 pt-3">
                   <div className="flex items-baseline gap-2">
                     <span className="text-lg font-black text-[#5b9e31]">
-                      ${product.price.toFixed(2)}
+                      {formatTaka(product.price)}
                     </span>
                     {product.originalPrice && (
                       <span className="text-xs text-zinc-400 line-through">
-                        ${product.originalPrice.toFixed(2)}
+                        {formatTaka(product.originalPrice)}
                       </span>
                     )}
                   </div>

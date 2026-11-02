@@ -56,16 +56,9 @@ export const currencies: CurrencyItem[] = [
   {
     code: "BDT",
     name: "Bangladeshi Taka",
-    symbol: "৳",
+    symbol: "Tk",
     flagNode: <BDFlag />,
     rate: 1.0,
-  },
-  {
-    code: "USD",
-    name: "US Dollar",
-    symbol: "$",
-    flagNode: <USAFlag />,
-    rate: 0.0085,
   },
   {
     code: "EUR",

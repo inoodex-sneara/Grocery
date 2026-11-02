@@ -42,14 +42,14 @@ export default function SearchBox() {
     <div className="w-full font-lemonada" ref={categoryRef}>
       <form
         onSubmit={handleSearchSubmit}
-        className="w-full flex items-center h-10 sm:h-11 bg-white border border-zinc-200/90 hover:border-zinc-300 focus-within:border-[#74B83E] focus-within:ring-2 focus-within:ring-[#74B83E]/15 rounded-lg sm:rounded-[2px] transition-all shadow-2xs relative"
+        className="relative flex h-10 w-full items-center gap-2 sm:h-11"
       >
         {/* Left: Category Dropdown Trigger */}
-        <div className="relative shrink-0 h-full">
+        <div className="relative h-full shrink-0">
           <button
             type="button"
             onClick={() => setIsCategoryOpen(!isCategoryOpen)}
-            className="h-full px-2.5 sm:px-4 bg-zinc-50/70 hover:bg-zinc-100/70 border-r border-zinc-200/80 text-xs sm:text-sm font-semibold text-zinc-700 flex items-center gap-1.5 transition-colors cursor-pointer select-none rounded-l-lg sm:rounded-l-[2px]"
+            className="flex h-full items-center gap-1.5 rounded-lg border border-zinc-200 bg-white px-2.5 text-xs font-semibold text-zinc-700 transition-colors hover:bg-zinc-50 sm:rounded-[2px] sm:px-4 sm:text-sm"
             aria-expanded={isCategoryOpen}
             title={selectedCategory.name}
           >
@@ -99,36 +99,38 @@ export default function SearchBox() {
           )}
         </div>
 
-        {/* Center: Search Input */}
-        <input
-          type="text"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search products, fruits, veggies..."
-          className="flex-1 h-full px-3 sm:px-4 text-xs sm:text-sm text-zinc-800 placeholder:text-zinc-400 bg-transparent focus:outline-none min-w-0"
-        />
+        <div className="flex h-full min-w-0 flex-1 items-center overflow-hidden rounded-lg border border-zinc-200 bg-white transition-colors focus-within:border-[#74B83E] focus-within:ring-2 focus-within:ring-[#74B83E]/15 hover:border-zinc-300 sm:rounded-[2px]">
+          {/* Center: Search Input */}
+          <input
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search products, fruits, veggies..."
+            className="h-full min-w-0 flex-1 bg-transparent px-3 text-xs text-zinc-800 placeholder:text-zinc-400 focus:outline-none sm:px-4 sm:text-sm"
+          />
 
-        {query && (
+          {query && (
+            <button
+              type="button"
+              onClick={() => setQuery("")}
+              className="mr-1 shrink-0 p-1.5 text-zinc-400 hover:text-zinc-600"
+              title="Clear search"
+            >
+              <X className="h-3.5 w-3.5" />
+            </button>
+          )}
+
+          {/* Right: Green Search Action Button */}
           <button
-            type="button"
-            onClick={() => setQuery("")}
-            className="p-1.5 text-zinc-400 hover:text-zinc-600 cursor-pointer mr-1 shrink-0"
-            title="Clear search"
+            type="submit"
+            className="flex h-full shrink-0 items-center justify-center gap-1.5 bg-[#74B83E] px-3.5 text-white transition-colors hover:bg-[#66a336] active:bg-[#588e2e] sm:px-5"
+            title="Search"
+            aria-label="Search"
           >
-            <X className="w-3.5 h-3.5" />
+            <Search className="h-4 w-4 stroke-[2.2]" />
+            <span className="hidden text-xs font-bold md:inline">Search</span>
           </button>
-        )}
-
-        {/* Right: Green Search Action Button */}
-        <button
-          type="submit"
-          className="h-full px-3.5 sm:px-5 bg-[#74B83E] hover:bg-[#66a336] active:bg-[#588e2e] text-white flex items-center justify-center gap-1.5 transition-colors cursor-pointer shrink-0 rounded-r-lg sm:rounded-r-[2px]"
-          title="Search"
-          aria-label="Search"
-        >
-          <Search className="w-4 h-4 stroke-[2.2]" />
-          <span className="hidden md:inline text-xs font-bold">Search</span>
-        </button>
+        </div>
       </form>
     </div>
   );

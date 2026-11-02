@@ -22,6 +22,7 @@ import {
 } from "lucide-react";
 import { Product, PRODUCTS, getRelatedProducts } from "@/data/productsData";
 import { useCartStore } from "@/store/cartStore";
+import { formatTaka } from "@/lib/currency";
 import { useWishlistStore } from "@/store/wishlistStore";
 
 interface ReviewItem {
@@ -130,7 +131,7 @@ export default function ProductDetail({ product }: { product: Product }) {
       image: product.image,
       quantity,
       unit: selectedSize,
-      currency: "USD",
+      currency: "BDT",
     });
 
     setAddedToCart(true);
@@ -144,7 +145,7 @@ export default function ProductDetail({ product }: { product: Product }) {
       price: product.price,
       image: product.image,
       unit: selectedSize,
-      currency: "USD",
+      currency: "BDT",
     });
   };
 
@@ -187,29 +188,7 @@ export default function ProductDetail({ product }: { product: Product }) {
 
   return (
     <div className="w-full min-h-screen bg-white relative">
-      {/* =========================================
-          1. TOP GREEN HERO BANNER (Shopify Groca Style)
-         ========================================= */}
-      <section
-        aria-label="Product Header Banner"
-        className="w-full bg-[#74B83E] py-9 sm:py-12 px-4 relative overflow-hidden"
-      >
-        <div className="max-w-7xl mx-auto flex flex-col items-center justify-center text-center relative z-10">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white font-lemonada tracking-tight mb-2">
-            Product
-          </h1>
-          <nav
-            aria-label="Breadcrumb"
-            className="flex items-center gap-1.5 text-xs sm:text-sm text-white/95 font-medium"
-          >
-            <Link href="/shop" className="hover:underline opacity-90 hover:opacity-100">
-              All
-            </Link>
-            <span className="opacity-75">/</span>
-            <span className="capitalize font-semibold">{product.name}</span>
-          </nav>
-        </div>
-      </section>
+      {/* Breadcrumb Navigation inside Main instead of bulky green header */}
 
       {/* Floating Recently Viewed Pill on the Right Side (Matches Screenshot 1 & 2) */}
       <button
@@ -283,7 +262,7 @@ export default function ProductDetail({ product }: { product: Product }) {
                         </h4>
                         <p className="text-xs text-zinc-500">{item.type}</p>
                         <p className="text-xs font-extrabold text-[#74B83E] mt-0.5">
-                          ${item.price.toFixed(2)}
+                          {formatTaka(item.price)}
                         </p>
                       </div>
                       <ArrowRight className="w-4 h-4 text-zinc-300 group-hover:text-[#74B83E] transition-colors" />
@@ -307,9 +286,24 @@ export default function ProductDetail({ product }: { product: Product }) {
       )}
 
       {/* =========================================
-          2. MAIN PRODUCT OVERVIEW SECTION (Screenshot 1 & 2)
+          2. MAIN PRODUCT OVERVIEW SECTION
          ========================================= */}
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
+        {/* Sleek Breadcrumb */}
+        <nav
+          aria-label="Breadcrumb"
+          className="flex items-center gap-2 text-xs sm:text-sm text-zinc-500 font-medium mb-6 sm:mb-8"
+        >
+          <Link href="/" className="hover:text-[#74B83E] transition-colors">
+            Home
+          </Link>
+          <span className="text-zinc-300">/</span>
+          <Link href="/shop" className="hover:text-[#74B83E] transition-colors">
+            Shop
+          </Link>
+          <span className="text-zinc-300">/</span>
+          <span className="capitalize text-zinc-900 font-semibold">{product.name}</span>
+        </nav>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-14 items-start">
           {/* LEFT: Product Gallery with Vertical Thumbnails Beside It (Matches Screenshot 1) */}
           <div className="flex flex-col sm:flex-row items-center sm:items-start justify-center gap-4">
@@ -367,11 +361,11 @@ export default function ProductDetail({ product }: { product: Product }) {
             {/* Price */}
             <div className="flex items-baseline gap-3">
               <span className="text-2xl sm:text-3xl font-extrabold text-[#74B83E]">
-                ${product.price.toFixed(2)}
+                {formatTaka(product.price)}
               </span>
               {product.originalPrice && (
                 <span className="text-sm sm:text-base text-zinc-400 line-through">
-                  ${product.originalPrice.toFixed(2)}
+                  {formatTaka(product.originalPrice)}
                 </span>
               )}
             </div>
@@ -863,7 +857,7 @@ export default function ProductDetail({ product }: { product: Product }) {
                           name: rel.name,
                           price: rel.price,
                           image: rel.image,
-                          currency: "USD",
+                          currency: "BDT",
                         });
                       }}
                       className={`w-8 h-8 rounded-full flex items-center justify-center transition-all duration-200 shadow-md hover:scale-110 cursor-pointer ${
@@ -903,7 +897,7 @@ export default function ProductDetail({ product }: { product: Product }) {
                   {/* Price */}
                   <div className="pt-0.5">
                     <span className="text-sm sm:text-base font-extrabold text-[#74B83E]">
-                      ${rel.price.toFixed(2)}
+                      {formatTaka(rel.price)}
                     </span>
                   </div>
 
@@ -918,7 +912,7 @@ export default function ProductDetail({ product }: { product: Product }) {
                           price: rel.price,
                           image: rel.image,
                           quantity: 1,
-                          currency: "USD",
+                          currency: "BDT",
                         })
                       }
                       className="w-full py-2 px-3 rounded-full bg-[#74B83E] hover:bg-[#639f33] active:scale-95 text-white text-xs font-bold shadow-2xs transition-all cursor-pointer"
@@ -1088,7 +1082,7 @@ export default function ProductDetail({ product }: { product: Product }) {
                   ))}
                 </div>
                 <p className="text-xl font-extrabold text-[#74B83E]">
-                  ${quickViewProduct.price.toFixed(2)}
+                  {formatTaka(quickViewProduct.price)}
                 </p>
                 <p className="text-xs text-zinc-500 line-clamp-2">
                   {quickViewProduct.description}
@@ -1104,7 +1098,7 @@ export default function ProductDetail({ product }: { product: Product }) {
                         price: quickViewProduct.price,
                         image: quickViewProduct.image,
                         quantity: 1,
-                        currency: "USD",
+                        currency: "BDT",
                       });
                       setQuickViewProduct(null);
                     }}

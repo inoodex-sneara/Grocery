@@ -154,7 +154,12 @@ export const PRODUCTS: Product[] = [
     name: "Almonds",
     price: 5.99,
     originalPrice: 7.49,
-    image: "/products/prod-almonds.webp",
+    image: "/products/premium-almonds.webp",
+    hoverImage: "/products/premium-almonds-hover.webp",
+    gallery: [
+      "/products/premium-almonds.webp",
+      "/products/premium-almonds-hover.webp",
+    ],
     badge: "Sale",
     badgeColor: "#ef4444",
     rating: 5,
@@ -200,7 +205,10 @@ export const PRODUCTS: Product[] = [
     slug: "rice",
     name: "Premium Rice",
     price: 3.29,
-    image: "/products/prod-rice.webp",
+    image: "/products/premium-basmati-rice.webp",
+    gallery: [
+      "/products/premium-basmati-rice.webp",
+    ],
     badge: "Best Seller",
     badgeColor: "#74B83E",
     rating: 4,
@@ -344,13 +352,13 @@ export const PRODUCTS: Product[] = [
     name: "Fresh Green Chilli",
     price: 0.4,
     originalPrice: 0.6,
-    image: "/products/668d1a336465c458a3e0fda7_Kacha-Morich-Chilli-Green_1.webp",
+    image: "/products/spice-green-chilli.webp",
     badge: "Sale",
     badgeColor: "#ef4444",
     rating: 5,
     reviewCount: 48,
     vendor: "FarmFresh",
-    type: "Vegetable",
+    type: "Spice",
     sizes: ["100 g", "250 g", "500 g"],
     richIn: ["Capsaicin", "Vitamin C", "Vitamin A", "Iron"],
     description:
@@ -362,6 +370,126 @@ export const PRODUCTS: Product[] = [
     environment:
       "Grown by partner farmers using chemical-free IPM (Integrated Pest Management) techniques.",
     viewCount: 52,
+  },
+  {
+    slug: "sukna-morich",
+    name: "Catch Dried Red Chilli",
+    price: 0.85,
+    originalPrice: 1.1,
+    image: "/products/spice-dry-chilli.webp",
+    badge: "Whole Spice",
+    badgeColor: "#ef4444",
+    rating: 5,
+    reviewCount: 39,
+    vendor: "Catch",
+    type: "Spice",
+    sizes: ["100 g", "200 g"],
+    richIn: ["Capsaicin", "Antioxidants", "Vitamin A", "Minerals"],
+    description:
+      "Authentic whole dried red chillies in sealed aroma-lock pouch with clear window. Perfect for tempering (tadka), curries, and grinding.",
+    overview:
+      "Sun-dried whole red chillies packaged in moisture-proof barrier pouches with inspection window for superior shelf life and fiery flavor.",
+    healthBenefits:
+      "Rich in capsaicin which supports healthy circulation, clears congestion, and promotes digestive vitality.",
+    environment:
+      "Naturally sun-dried on hygienic raised beds and sealed in food-grade recyclable foil pouches.",
+    viewCount: 44,
+  },
+  {
+    slug: "jira-gura-packet",
+    name: "Catch Cumin Powder",
+    price: 1.2,
+    originalPrice: 1.4,
+    image: "/products/spice-cumin-powder.webp",
+    badge: "100% Pure",
+    badgeColor: "#74B83E",
+    rating: 5,
+    reviewCount: 64,
+    vendor: "Catch",
+    type: "Spice",
+    sizes: ["100 g", "200 g"],
+    richIn: ["Iron", "Essential Oils", "Antioxidants", "Magnesium"],
+    description:
+      "100% pure stone-ground cumin powder in sealed aroma-lock pouch packaging. Adds an earthy, warm aroma and quintessential flavor to any preparation.",
+    overview:
+      "Carefully selected premium cumin seeds roasted to perfection and ground under strict hygiene controls to retain authentic volatile oils.",
+    healthBenefits:
+      "Renowned for aiding digestion, providing bioavailable dietary iron, and stabilizing enzyme balance.",
+    environment:
+      "Packaged in recyclable multi-barrier foil keeping moisture out and freshness locked in.",
+    viewCount: 78,
+  },
+  {
+    slug: "morich-gura-packet",
+    name: "Catch Red Chilli Powder",
+    price: 1.45,
+    originalPrice: 1.75,
+    image: "/products/spice-chilli-powder.webp",
+    badge: "Best Seller",
+    badgeColor: "#ef4444",
+    rating: 5,
+    reviewCount: 51,
+    vendor: "Catch",
+    type: "Spice",
+    sizes: ["100 g", "200 g", "500 g"],
+    richIn: ["Capsaicin", "Vitamin C", "Carotenoids"],
+    description:
+      "Vibrant red ground chilli powder milled from select whole chillies. Delivers a rich crimson color and balanced fiery kick.",
+    overview:
+      "Processed from handpicked farm-grade red chillies, machine cleaned and ground under automated temperature-controlled milling.",
+    healthBenefits:
+      "Stimulates metabolism, acts as a natural preservative in marinades, and provides beneficial carotenoid antioxidants.",
+    environment:
+      "Sustainably sourced with zero added artificial colors or preservatives.",
+    viewCount: 60,
+  },
+  {
+    slug: "holud-gura-packet",
+    name: "Catch Turmeric Powder",
+    price: 1.1,
+    originalPrice: 1.35,
+    image: "/products/spice-turmeric-powder.webp",
+    badge: "Organic",
+    badgeColor: "#74B83E",
+    rating: 5,
+    reviewCount: 42,
+    vendor: "Catch",
+    type: "Spice",
+    sizes: ["100 g", "200 g", "500 g"],
+    richIn: ["Curcumin", "Antioxidants", "Iron", "Manganese"],
+    description:
+      "High-curcumin golden turmeric powder. Imparts radiant natural yellow color, earthy fragrance, and proven health benefits.",
+    overview:
+      "High quality whole turmeric rhizomes polished, sun-cured, and pulverized for supreme potency and natural bright color.",
+    healthBenefits:
+      "Curcumin is celebrated globally for its potent anti-inflammatory and cellular antioxidant properties.",
+    environment:
+      "Eco-friendly farming practices preserving soil vitality in Bangladesh hill tracts.",
+    viewCount: 56,
+  },
+  {
+    slug: "masala-packet",
+    name: "Catch Garam Masala",
+    price: 1.6,
+    originalPrice: 1.9,
+    image: "/products/spice-garam-masala.webp",
+    badge: "Aroma Lock",
+    badgeColor: "#8b5cf6",
+    rating: 5,
+    reviewCount: 35,
+    vendor: "Catch",
+    type: "Spice",
+    sizes: ["50 g", "100 g"],
+    richIn: ["Cardamom", "Cinnamon", "Cloves", "Nutmeg"],
+    description:
+      "A royal blend of 12 aromatic whole spices expertly toasted and ground for exquisite meat, biryani, and festive curry dishes.",
+    overview:
+      "Handcrafted recipe blending green cardamom, cinnamon quills, cloves, mace, and star anise for timeless culinary elegance.",
+    healthBenefits:
+      "Spices stimulate salivary secretion, warm the digestive tract, and provide therapeutic phytonutrients.",
+    environment:
+      "Direct trade with regional spice growers ensuring fair compensation and ethical harvesting.",
+    viewCount: 49,
   },
 ];
 

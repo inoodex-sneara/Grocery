@@ -84,7 +84,7 @@ const SPECIAL_PRODUCTS: SpecialProduct[] = [
     name: "Badam",
     price: 280,
     oldPrice: 350,
-    image: "/shop/Shop-26_7b8fa6d5-1a3c-42f9-ae94-02b6fcbb4263.webp",
+    image: "/products/premium-almonds.webp",
     badge: "Sold Out",
     soldOut: true,
     rating: 5,
@@ -95,7 +95,7 @@ const SPECIAL_PRODUCTS: SpecialProduct[] = [
     slug: "cookies",
     name: "Nuts Cookies",
     price: 120,
-    image: "/products/prod-cookies.webp",
+    image: "/products/test-cookie-square.webp",
     rating: 5,
     category: "Bakery & Snacks",
   },
@@ -220,7 +220,7 @@ export default function SpecialProducts() {
               {/* =========================================
                   LEFT: IMAGE & ACTION BUTTONS
                  ========================================= */}
-              <div className="relative w-28 sm:w-32 h-28 sm:h-32 shrink-0 bg-zinc-50/70 rounded-xl flex items-center justify-center p-2">
+              <div               className="relative w-28 sm:w-32 h-28 sm:h-32 shrink-0 overflow-hidden bg-white rounded-xl flex items-center justify-center p-2">
                 {/* Red Discount / Sold Out Badge */}
                 {product.badge && (
                   <span className="absolute top-2 left-2 z-10 px-2 py-0.5 rounded-full text-[10px] font-bold text-white bg-red-600 shadow-2xs select-none">

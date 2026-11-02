@@ -147,14 +147,15 @@ export default function CategoryProducts() {
                   </p>
 
 
-                  
+
                 </div>
                 <Link
                   href={`/category/${category.slug}`}
                   className="inline-flex shrink-0 items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-bold text-[#74B83E] hover:bg-[#ecf7e6] transition-colors"
                 >
                   <span>View All</span>
-                  <ArrowRight className="h-3.5 w-3.5" />
+                  <ArrowRight className="h-3.5 
+                  w-3.5" />
                 </Link>
               </div>
 
@@ -186,11 +187,10 @@ export default function CategoryProducts() {
                           alt={product.name}
                           fill
                           sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
-                          className={`object-contain p-2 transition-all duration-500 ease-out ${
-                            product.hoverImage
+                          className={`object-contain p-2 transition-all duration-500 ease-out ${product.hoverImage
                               ? "group-hover:opacity-0 group-hover:scale-95"
                               : "group-hover:scale-108"
-                          }`}
+                            }`}
                         />
 
                         {product.hoverImage && (
@@ -216,17 +216,15 @@ export default function CategoryProducts() {
                           <button
                             type="button"
                             onClick={(e) => handleToggleWishlist(product, e)}
-                            className={`w-8 h-8 rounded-full flex items-center justify-center transition-all duration-200 shadow-md hover:scale-110 cursor-pointer ${
-                              isWishlisted
+                            className={`w-8 h-8 rounded-full flex items-center justify-center transition-all duration-200 shadow-md hover:scale-110 cursor-pointer ${isWishlisted
                                 ? "bg-red-500 text-white"
                                 : "bg-zinc-900/90 hover:bg-red-500 text-white"
-                            }`}
+                              }`}
                             title={isWishlisted ? "Remove Wishlist" : "Add to Wishlist"}
                           >
                             <Heart
-                              className={`w-3.5 h-3.5 stroke-[2.5] ${
-                                isWishlisted ? "fill-white" : ""
-                              }`}
+                              className={`w-3.5 h-3.5 stroke-[2.5] ${isWishlisted ? "fill-white" : ""
+                                }`}
                             />
                           </button>
                         </div>
@@ -273,11 +271,10 @@ export default function CategoryProducts() {
                           <button
                             type="button"
                             onClick={(e) => handleAddToCart(product, e)}
-                            className={`w-full py-2 px-4 rounded-full text-xs font-bold transition-all duration-200 shadow-2xs flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 ${
-                              isAdded
+                            className={`w-full py-2 px-4 rounded-full text-xs font-bold transition-all duration-200 shadow-2xs flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 ${isAdded
                                 ? "bg-zinc-900 text-white"
                                 : "bg-[#74B83E] hover:bg-[#639f33] text-white"
-                            }`}
+                              }`}
                           >
                             {isAdded ? (
                               <>

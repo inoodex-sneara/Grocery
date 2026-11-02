@@ -35,7 +35,7 @@ export const DEAL_PRODUCTS: DealProduct[] = [
     category: "Dry Fruits & Nuts",
     price: 560,
     oldPrice: 750,
-    image: "/products/prod-almonds.webp",
+    image: "/products/premium-almonds.webp",
     unit: "500 g",
     rating: 5,
     sold: 45,

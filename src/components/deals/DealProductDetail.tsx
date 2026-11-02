@@ -22,14 +22,7 @@ import {
 import { DEAL_PRODUCTS, type DealProduct } from "@/data/dealsData";
 import { useCartStore } from "@/store/cartStore";
 import { useWishlistStore } from "@/store/wishlistStore";
-
-function money(amount: number) {
-  return new Intl.NumberFormat("en-BD", {
-    style: "currency",
-    currency: "BDT",
-    maximumFractionDigits: 0,
-  }).format(amount);
-}
+import { formatTaka } from "@/lib/currency";
 
 export default function DealProductDetail({
   product,
@@ -193,10 +186,10 @@ export default function DealProductDetail({
             <div className="mt-6 rounded-2xl border border-[#e6efd9] bg-[#f7faf3] px-4 py-4 shadow-[0_8px_24px_-18px_rgba(54,93,37,0.5)] sm:px-5">
               <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
                 <span className="text-[1.75rem] font-black tracking-[-0.04em] text-[#477d2c] sm:text-[2rem]">
-                  {money(product.price)}
+                  {formatTaka(product.price)}
                 </span>
                 <span className="text-sm font-medium text-zinc-400 line-through sm:text-base">
-                  {money(product.oldPrice)}
+                  {formatTaka(product.oldPrice)}
                 </span>
                 <span className="rounded-full bg-red-600 px-2.5 py-1 text-[10px] font-extrabold tracking-wide text-white shadow-sm shadow-red-900/10">
                   SAVE {discount}%
@@ -204,7 +197,7 @@ export default function DealProductDetail({
               </div>
               <div className="mt-3 flex flex-wrap items-center gap-2">
                 <span className="rounded-full border border-red-100 bg-white px-2.5 py-1 text-[11px] font-bold text-red-600">
-                  You save {money(product.oldPrice - product.price)}
+                  You save {formatTaka(product.oldPrice - product.price)}
                 </span>
                 <span className="text-[11px] font-medium text-zinc-500">
                   Limited-time deal
@@ -386,10 +379,10 @@ export default function DealProductDetail({
                   </p>
                   <div className="mt-1.5 flex flex-wrap items-baseline gap-2">
                     <span className="text-sm font-extrabold text-[#54892f]">
-                      {money(deal.price)}
+                      {formatTaka(deal.price)}
                     </span>
                     <span className="text-xs text-zinc-400 line-through">
-                      {money(deal.oldPrice)}
+                      {formatTaka(deal.oldPrice)}
                     </span>
                   </div>
                 </Link>

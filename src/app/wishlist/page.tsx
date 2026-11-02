@@ -5,13 +5,7 @@ import Link from "next/link";
 import { ArrowRight, Heart, ShoppingCart, Trash2 } from "lucide-react";
 import { useCartStore } from "@/store/cartStore";
 import { useWishlistStore } from "@/store/wishlistStore";
-
-const money = (amount: number, currency: "USD" | "BDT") =>
-  new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency,
-    maximumFractionDigits: 2,
-  }).format(amount);
+import { formatTaka } from "@/lib/currency";
 
 export default function WishlistPage() {
   const items = useWishlistStore((state) => state.items);
@@ -69,7 +63,7 @@ export default function WishlistPage() {
                     <p className="mt-1 text-xs text-zinc-500">{item.unit}</p>
                   )}
                   <p className="mt-2 font-bold text-[#54892f]">
-                    {money(item.price, item.currency)}
+                    {formatTaka(item.price)}
                   </p>
                   <button
                     type="button"
