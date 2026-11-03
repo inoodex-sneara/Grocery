@@ -3,7 +3,8 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Star, Search, Heart, ShoppingCart, X, Check } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { Star, Eye, Heart, ShoppingCart, X, Check } from "lucide-react";
 import { useCartStore } from "@/store/cartStore";
 import { useWishlistStore } from "@/store/wishlistStore";
 
@@ -56,7 +57,7 @@ const SPECIAL_PRODUCTS: SpecialProduct[] = [
   },
   {
     id: "sp-egg",
-    slug: "eggs",
+    slug: "farm-eggs",
     name: "Egg",
     price: 145,
     oldPrice: 165,
@@ -68,7 +69,7 @@ const SPECIAL_PRODUCTS: SpecialProduct[] = [
   },
   {
     id: "sp-chicken",
-    slug: "chicken",
+    slug: "chicken-breast",
     name: "Chicken Breast",
     price: 320,
     oldPrice: 450,
@@ -95,7 +96,7 @@ const SPECIAL_PRODUCTS: SpecialProduct[] = [
     slug: "cookies",
     name: "Nuts Cookies",
     price: 120,
-    image: "/products/test-cookie-square.webp",
+    image: "/products/prod-cookies.webp",
     rating: 5,
     category: "Bakery & Snacks",
   },
@@ -110,7 +111,7 @@ const SPECIAL_PRODUCTS: SpecialProduct[] = [
   },
   {
     id: "sp-mushroom",
-    slug: "cucumber",
+    slug: "oyster-mushrooms",
     name: "Flower Mushroom",
     price: 120,
     oldPrice: 150,
@@ -122,6 +123,7 @@ const SPECIAL_PRODUCTS: SpecialProduct[] = [
 ];
 
 export default function SpecialProducts() {
+  const router = useRouter();
   const [addedItems, setAddedItems] = useState<Record<string, boolean>>({});
   const addItem = useCartStore((state) => state.addItem);
   const wishlistItems = useWishlistStore((state) => state.items);
@@ -210,17 +212,18 @@ export default function SpecialProducts() {
             (item) => item.id === product.id,
           );
           const isAdded = !!addedItems[product.id];
+          const productHref = `/products/${product.slug || "beetroot"}`;
 
           return (
             <div
               key={product.id}
               className="group relative bg-white border border-zinc-200/80 hover:border-[#74B83E] rounded-2xl p-3 sm:p-4 flex items-center gap-3 sm:gap-4 transition-all duration-300 hover:shadow-md cursor-pointer overflow-hidden"
-              onClick={() => setQuickViewProduct(product)}
+              onClick={() => router.push(productHref)}
             >
               {/* =========================================
                   LEFT: IMAGE & ACTION BUTTONS
                  ========================================= */}
-              <div               className="relative w-28 sm:w-32 h-28 sm:h-32 shrink-0 overflow-hidden bg-white rounded-xl flex items-center justify-center p-2">
+              <div className="relative w-28 sm:w-32 h-28 sm:h-32 shrink-0 overflow-hidden bg-white rounded-xl flex items-center justify-center p-2">
                 {/* Red Discount / Sold Out Badge */}
                 {product.badge && (
                   <span className="absolute top-2 left-2 z-10 px-2 py-0.5 rounded-full text-[10px] font-bold text-white bg-red-600 shadow-2xs select-none">
@@ -234,7 +237,7 @@ export default function SpecialProducts() {
                     src={product.image}
                     alt={product.name}
                     fill
-                    className="object-contain p-1.5 transition-transform duration-300 group-hover:scale-105"
+                    className="bg-white object-contain p-1.5 transition-transform duration-300 group-hover:scale-105"
                   />
                 </div>
 
@@ -251,7 +254,7 @@ export default function SpecialProducts() {
                     title="Quick View"
                     aria-label="Quick View"
                   >
-                    <Search className="w-3.5 h-3.5 stroke-[2.5]" />
+                    <Eye className="w-3.5 h-3.5 stroke-[2.5]" />
                   </button>
 
                   {/* Wishlist Button */}
@@ -281,11 +284,10 @@ export default function SpecialProducts() {
               <div className="flex-1 min-w-0 flex flex-col justify-center">
                 {/* Product Name */}
                 <Link
-                  href={`/products/${product.slug || "beetroot"}`}
-                  onClick={(e) => e.stopPropagation()}
+                  href={productHref}
                   className="block"
                 >
-                  <h3 className="text-sm sm:text-base font-bold text-zinc-900 hover:text-[#74B83E] transition-colors truncate">
+                  <h3 className="text-sm sm:text-base font-bold text-zinc-900 group-hover:text-[#74B83E] transition-colors truncate">
                     {product.name}
                   </h3>
                 </Link>
@@ -363,12 +365,12 @@ export default function SpecialProducts() {
             </button>
 
             <div className="flex flex-col sm:flex-row gap-6 items-center">
-              <div className="relative w-44 h-44 bg-zinc-50 rounded-2xl flex items-center justify-center p-3 shrink-0">
+              <div className="relative w-44 h-44 bg-white rounded-2xl flex items-center justify-center p-3 shrink-0">
                 <Image
                   src={quickViewProduct.image}
                   alt={quickViewProduct.name}
                   fill
-                  className="object-contain p-2"
+                  className="bg-white object-contain p-2"
                 />
               </div>
 

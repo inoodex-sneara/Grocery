@@ -3,7 +3,8 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Star, Search, Heart, Check, X, ShoppingCart, ArrowRight } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { Star, Eye, Heart, Check, X, ShoppingCart, ArrowRight } from "lucide-react";
 import { useCartStore } from "@/store/cartStore";
 import { useWishlistStore } from "@/store/wishlistStore";
 
@@ -103,6 +104,7 @@ const SPICE_ITEMS: SpiceProduct[] = [
 ];
 
 export default function SpicesSection() {
+  const router = useRouter();
   const [addedItems, setAddedItems] = useState<Record<string, boolean>>({});
   const [quickViewProduct, setQuickViewProduct] = useState<SpiceProduct | null>(null);
 
@@ -183,7 +185,8 @@ export default function SpicesSection() {
             return (
               <div
                 key={product.id}
-                className="group relative bg-white border border-zinc-200/80 hover:border-[#74B83E] rounded-2xl p-3 sm:p-4 flex flex-col justify-between transition-all duration-300 hover:shadow-xl hover:-translate-y-1 shadow-2xs"
+                onClick={() => router.push(`/products/${product.slug}`)}
+                className="group relative bg-white border border-zinc-200/80 hover:border-[#74B83E] rounded-2xl p-3 sm:p-4 flex flex-col justify-between transition-all duration-300 hover:shadow-xl hover:-translate-y-1 shadow-2xs cursor-pointer"
               >
                 {/* Discount / Category Badge */}
                 <div className="absolute top-2.5 left-2.5 z-10">
@@ -215,7 +218,7 @@ export default function SpicesSection() {
                       className="w-8 h-8 rounded-full bg-zinc-900/90 hover:bg-[#74B83E] text-white flex items-center justify-center transition-all duration-200 shadow-md hover:scale-110 cursor-pointer"
                       title="Quick View"
                     >
-                      <Search className="w-3.5 h-3.5 stroke-[2.5]" />
+                      <Eye className="w-3.5 h-3.5 stroke-[2.5]" />
                     </button>
                     <button
                       type="button"

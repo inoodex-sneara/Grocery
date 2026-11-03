@@ -3,6 +3,7 @@ import Navbar from "@/components/navbar/Navbar";
 import Providers from "@/providers/Providers";
 import Footer from "@/components/footer/Footer";
 import ScrollToTop from "@/components/common/ScrollToTop";
+import FloatingCart from "@/components/common/FloatingCart";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -22,6 +23,7 @@ export default function RootLayout({
           <Navbar />
           {children}
           <Footer />
+          <FloatingCart />
           <ScrollToTop />
         </Providers>
       </body>

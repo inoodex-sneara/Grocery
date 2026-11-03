@@ -13,13 +13,16 @@ import { useWishlistStore } from "@/store/wishlistStore";
 import MobileNav from "./MobileNav";
 
 export default function Navbar() {
-  const [isCartOpen, setIsCartOpen] = useState(false);
+  const isCartOpen = useCartStore((state) => state.isDrawerOpen);
+  const openCart = useCartStore((state) => state.openDrawer);
+  const closeCart = useCartStore((state) => state.closeDrawer);
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   const cartCount = useCartStore((state) => state.items.reduce((count, item) => count + item.quantity, 0));
   const wishlistCount = useWishlistStore((state) => state.items.length);
 
   return (
-    <header className="w-full bg-white border-b border-zinc-100 sticky top-0 z-40 shadow-xs font-lemonada">
+    <>
+      <header className="w-full bg-white border-b border-zinc-100 sticky top-0 z-40 shadow-xs font-lemonada">
       {/* =========================================
           ROW 1: MAIN NAVIGATION BAR
          ========================================= */}
@@ -66,7 +69,7 @@ export default function Navbar() {
             {/* Shopping Cart Icon with Badge (matches screenshot with badge '1') */}
             <button
               type="button"
-              onClick={() => setIsCartOpen(true)}
+              onClick={openCart}
               className="relative p-1.5 sm:p-2 text-zinc-800 hover:text-[#74B83E] hover:bg-zinc-50 rounded-full transition-colors cursor-pointer group"
               title="Cart"
               aria-label="Shopping Cart"
@@ -91,19 +94,20 @@ export default function Navbar() {
         </div>
       </div>
       <div className="h-1 bg-[#d8f3b2] w-full" />
-
-      {/* =========================================
-          DRAWERS & MODALS
-         ========================================= */}
-      <CartDrawer
-        isOpen={isCartOpen}
-        onClose={() => setIsCartOpen(false)}
-      />
-
-      <MobileNav
-        isOpen={isMobileNavOpen}
-        onClose={() => setIsMobileNavOpen(false)}
-      />
     </header>
+
+    {/* =========================================
+        DRAWERS & MODALS (Outside header to prevent z-index stacking context clipping)
+       ========================================= */}
+    <CartDrawer
+      isOpen={isCartOpen}
+      onClose={closeCart}
+    />
+
+    <MobileNav
+      isOpen={isMobileNavOpen}
+      onClose={() => setIsMobileNavOpen(false)}
+    />
+  </>
   );
 }

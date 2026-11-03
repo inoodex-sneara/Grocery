@@ -4,7 +4,6 @@ import { useState } from "react";
 import {
   ArrowUpRight,
   CheckCircle2,
-  Clock3,
   Mail,
   MapPin,
   Phone,
@@ -48,54 +47,28 @@ export default function ContactPage() {
   return (
     <main className="flex-1 bg-[#f7f9f4]">
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8 lg:py-16">
-        <section className="relative isolate overflow-hidden rounded-3xl bg-gradient-to-br from-[#78bd42] to-[#4e9631] px-6 py-10 text-white shadow-lg shadow-green-900/10 sm:px-10 sm:py-14 lg:px-16">
-          <div className="absolute -right-16 -top-32 -z-10 h-80 w-80 rounded-full border-[40px] border-white/10" />
-          <div className="absolute -bottom-36 right-1/4 -z-10 h-72 w-72 rounded-full bg-white/5 blur-2xl" />
-          <div className="max-w-2xl">
-            <span className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-3 py-1.5 text-xs font-bold uppercase tracking-[0.16em]">
-              <Mail className="h-3.5 w-3.5" />
-              Contact Groca
-            </span>
-            <h1 className="mt-5 text-3xl font-extrabold tracking-tight sm:text-4xl lg:text-5xl">
-              We&apos;re here to help.
-              <span className="mt-1 block text-green-100">Let&apos;s talk.</span>
-            </h1>
-            <p className="mt-4 max-w-xl text-sm leading-6 text-white/85 sm:text-base sm:leading-7">
-              Questions about an order, our products, or anything else? Send us a
-              note and our team will be happy to help.
-            </p>
-          </div>
-          <div className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-white/90">
-            <Clock3 className="h-4 w-4" />
-            We&apos;re ready when you are
-          </div>
-        </section>
+        <header className="mb-8 text-center sm:mb-10">
+          <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#639f33]">
+            Get in touch
+          </p>
+          <h1 className="mt-2 text-3xl font-extrabold tracking-tight text-zinc-900 sm:text-4xl">
+            Contact information
+          </h1>
+          <p className="mt-2 text-sm leading-6 text-zinc-500">
+            Choose whichever way works best for you.
+          </p>
+        </header>
 
-        <div className="mt-8 grid gap-6 lg:mt-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-8">
+        <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:gap-8">
           <section aria-labelledby="contact-info-heading" className="space-y-5">
-            <div className="px-1">
-              <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#639f33]">
-                Get in touch
-              </p>
-              <h2
-                id="contact-info-heading"
-                className="mt-2 text-2xl font-extrabold tracking-tight text-zinc-900"
-              >
-                Contact information
-              </h2>
-              <p className="mt-2 text-sm leading-6 text-zinc-500">
-                Choose whichever way works best for you.
-              </p>
-            </div>
-
-            <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
+            <div className="grid gap-3 md:grid-cols-3 lg:grid-cols-1">
               {contactDetails.map(({ title, detail, note, href, icon: Icon }) => (
                 <a
                   key={title}
                   href={href}
                   target={title === "Visit us" ? "_blank" : undefined}
                   rel={title === "Visit us" ? "noreferrer" : undefined}
-                  className="group flex min-w-0 items-start gap-4 rounded-2xl border border-zinc-200/80 bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:border-[#b8d99e] hover:shadow-md sm:p-5"
+                  className="group flex min-w-0 items-start gap-3 rounded-2xl border border-zinc-200/80 bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:border-[#b8d99e] hover:shadow-md sm:gap-4 sm:p-5"
                 >
                   <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#eff8e9] text-[#639f33] transition group-hover:bg-[#74b83e] group-hover:text-white">
                     <Icon className="h-5 w-5" />

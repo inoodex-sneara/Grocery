@@ -28,6 +28,13 @@ import {
   Truck,
   User,
 } from "lucide-react";
+import {
+  BkashIcon,
+  NagadIcon,
+  CodIcon,
+  CardIcon,
+  UpayIcon,
+} from "@/components/icons/PaymentIcons";
 import { useCartStore } from "@/store/cartStore";
 import {
   saveCheckoutOrder,
@@ -46,9 +53,10 @@ const paymentMethods = [
     name: "Cash on Delivery",
     tagline: "Pay with cash at your doorstep",
     badge: "Most Popular",
-    Icon: Banknote,
     color: "emerald",
-    iconUrl: null,
+    bgClass: "bg-emerald-50 text-emerald-600 border-emerald-200",
+    activeClass: "border-emerald-500 bg-emerald-50/40 ring-emerald-500/20",
+    renderIcon: (className = "h-6 w-6") => <CodIcon className={className} />,
     merchantNumber: null,
   },
   {
@@ -56,9 +64,10 @@ const paymentMethods = [
     name: "bKash",
     tagline: "Instant mobile payment",
     badge: "Fast MFS",
-    Icon: Smartphone,
     color: "pink",
-    iconUrl: "https://www.google.com/s2/favicons?domain=bkash.com&sz=64",
+    bgClass: "bg-pink-50 text-[#E2136E] border-pink-200",
+    activeClass: "border-[#E2136E] bg-pink-50/40 ring-[#E2136E]/20",
+    renderIcon: (className = "h-6 w-6") => <BkashIcon className={className} />,
     merchantNumber: "01712-345678",
   },
   {
@@ -66,9 +75,10 @@ const paymentMethods = [
     name: "Nagad",
     tagline: "Pay securely via Nagad",
     badge: "Low Charge",
-    Icon: Smartphone,
     color: "orange",
-    iconUrl: "https://www.google.com/s2/favicons?domain=nagad.com.bd&sz=64",
+    bgClass: "bg-orange-50 text-orange-600 border-orange-200",
+    activeClass: "border-orange-500 bg-orange-50/40 ring-orange-500/20",
+    renderIcon: (className = "h-6 w-6") => <NagadIcon className={className} />,
     merchantNumber: "01812-345678",
   },
   {
@@ -76,9 +86,10 @@ const paymentMethods = [
     name: "Credit / Debit Card",
     tagline: "Visa, Mastercard, Amex",
     badge: "Encrypted",
-    Icon: CreditCard,
     color: "indigo",
-    iconUrl: null,
+    bgClass: "bg-indigo-50 text-indigo-600 border-indigo-200",
+    activeClass: "border-indigo-500 bg-indigo-50/40 ring-indigo-500/20",
+    renderIcon: (className = "h-6 w-6") => <CardIcon className={className} />,
     merchantNumber: null,
   },
   {
@@ -86,9 +97,10 @@ const paymentMethods = [
     name: "Upay",
     tagline: "UCB mobile banking",
     badge: "MFS",
-    Icon: Smartphone,
     color: "blue",
-    iconUrl: "https://www.google.com/s2/favicons?domain=upaybd.com&sz=64",
+    bgClass: "bg-teal-50 text-teal-600 border-teal-200",
+    activeClass: "border-teal-500 bg-teal-50/40 ring-teal-500/20",
+    renderIcon: (className = "h-6 w-6") => <UpayIcon className={className} />,
     merchantNumber: "01912-345678",
   },
 ] as const;
@@ -302,7 +314,7 @@ export default function CheckoutPage() {
   const totalCartCount = items.reduce((acc, curr) => acc + curr.quantity, 0);
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] text-zinc-900 antialiased pb-20 lg:pb-12">
+    <div className="min-h-screen bg-[#f8fafc] text-zinc-900 antialiased pb-28 lg:pb-12">
       {/* =========================================
           1. TOP NAVIGATION & PROGRESS HEADER
          ========================================= */}
@@ -442,11 +454,6 @@ export default function CheckoutPage() {
                       ? "Hide Order Summary"
                       : `Show Order Summary (${items.length} items)`}
                   </span>
-                  <ChevronDown
-                    className={`h-4 w-4 text-zinc-500 transition-transform duration-200 ${
-                      isMobileSummaryOpen ? "rotate-180" : ""
-                    }`}
-                  />
                 </div>
                 <span className="text-sm sm:text-base font-black text-zinc-900">
                   {formatTaka(total)}
@@ -519,7 +526,7 @@ export default function CheckoutPage() {
             <form
               id="checkout-form"
               onSubmit={handleCheckoutSubmit}
-              className="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:gap-8 xl:gap-10 2xl:gap-12 items-start"
+              className="grid grid-cols-1 gap-6 pb-24 lg:pb-0 lg:grid-cols-12 lg:gap-8 xl:gap-10 2xl:gap-12 items-start"
             >
               {/* =========================================================
                   LEFT COLUMN: Customer Info, Shipping & Payment Steps
@@ -738,172 +745,7 @@ export default function CheckoutPage() {
                   </div>
                 </section>
 
-                {/* STEP 2: Delivery Speed & Schedule */}
-                <section className="rounded-2xl border border-zinc-200/90 bg-white p-4 sm:p-6 lg:p-7 2xl:p-8 shadow-xs">
-                  <div className="flex items-center gap-3.5 mb-5 sm:mb-6 pb-4 border-b border-zinc-100">
-                    <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#74b83e] text-sm font-black text-white shadow-xs">
-                      2
-                    </span>
-                    <div>
-                      <h2 className="text-base sm:text-lg 2xl:text-xl font-bold text-zinc-900 flex items-center gap-2">
-                        <span>Delivery Method & Preferred Timing</span>
-                        <Truck className="h-4 w-4 text-[#74b83e]" />
-                      </h2>
-                      <p className="text-xs sm:text-sm text-zinc-500">
-                        Choose when and how fast you need your grocery delivery.
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Shipping Speed Radio Cards */}
-                  <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 mb-5">
-                    <label
-                      onClick={() => setShippingMethod("standard")}
-                      className={`relative flex cursor-pointer flex-col justify-between rounded-xl border p-4 transition-all ${
-                        shippingMethod === "standard"
-                          ? "border-[#74b83e] bg-emerald-50/40 ring-2 ring-[#74b83e]/20"
-                          : "border-zinc-200 bg-white hover:border-zinc-300"
-                      }`}
-                    >
-                      <div className="flex items-start justify-between">
-                        <div className="flex items-center gap-2.5">
-                          <span
-                            className={`flex h-4 w-4 items-center justify-center rounded-full border ${
-                              shippingMethod === "standard"
-                                ? "border-[#74b83e] bg-[#74b83e]"
-                                : "border-zinc-300"
-                            }`}
-                          >
-                            {shippingMethod === "standard" && (
-                              <span className="h-1.5 w-1.5 rounded-full bg-white" />
-                            )}
-                          </span>
-                          <span className="text-sm font-bold text-zinc-900">
-                            Standard Delivery
-                          </span>
-                        </div>
-                        <span className="text-sm font-extrabold text-[#74b83e]">
-                          {isFreeDeliveryQualified ? "FREE" : "৳20"}
-                        </span>
-                      </div>
-                      <p className="mt-2 text-xs text-zinc-500 pl-6">
-                        Estimated delivery within 2 to 3 hours from dispatch.
-                      </p>
-                    </label>
-
-                    <label
-                      onClick={() => setShippingMethod("express")}
-                      className={`relative flex cursor-pointer flex-col justify-between rounded-xl border p-4 transition-all ${
-                        shippingMethod === "express"
-                          ? "border-[#74b83e] bg-emerald-50/40 ring-2 ring-[#74b83e]/20"
-                          : "border-zinc-200 bg-white hover:border-zinc-300"
-                      }`}
-                    >
-                      <div className="flex items-start justify-between">
-                        <div className="flex items-center gap-2.5">
-                          <span
-                            className={`flex h-4 w-4 items-center justify-center rounded-full border ${
-                              shippingMethod === "express"
-                                ? "border-[#74b83e] bg-[#74b83e]"
-                                : "border-zinc-300"
-                            }`}
-                          >
-                            {shippingMethod === "express" && (
-                              <span className="h-1.5 w-1.5 rounded-full bg-white" />
-                            )}
-                          </span>
-                          <div className="flex items-center gap-1.5">
-                            <span className="text-sm font-bold text-zinc-900">
-                              Express 60-Min
-                            </span>
-                            <span className="rounded-md bg-amber-100 px-1.5 py-0.5 text-[10px] font-bold text-amber-800">
-                              Fast
-                            </span>
-                          </div>
-                        </div>
-                        <span className="text-sm font-extrabold text-zinc-900">
-                          {isFreeDeliveryQualified ? "৳30" : "৳50"}
-                        </span>
-                      </div>
-                      <p className="mt-2 text-xs text-zinc-500 pl-6">
-                        Priority express packing and delivery within 60 minutes.
-                      </p>
-                    </label>
-                  </div>
-
-                  {/* Delivery Time Slot Selection */}
-                  <div className="mb-5">
-                    <label className="block text-xs font-semibold text-zinc-700 mb-2 flex items-center gap-1.5">
-                      <Clock className="h-3.5 w-3.5 text-zinc-500" />
-                      <span>Select Preferred Delivery Slot:</span>
-                    </label>
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
-                      {[
-                        {
-                          id: "today_morning",
-                          label: "Morning Slot",
-                          time: "9:00 AM – 12:00 PM",
-                        },
-                        {
-                          id: "today_afternoon",
-                          label: "Afternoon Slot",
-                          time: "2:00 PM – 5:00 PM",
-                        },
-                        {
-                          id: "today_evening",
-                          label: "Evening Slot",
-                          time: "6:00 PM – 9:00 PM",
-                        },
-                      ].map((slot) => {
-                        const isSelected = timeSlot === slot.id;
-                        return (
-                          <button
-                            key={slot.id}
-                            type="button"
-                            onClick={() => setTimeSlot(slot.id)}
-                            className={`flex flex-col text-left p-3 rounded-xl border transition-all cursor-pointer ${
-                              isSelected
-                                ? "border-[#74b83e] bg-emerald-50/50 text-zinc-900 shadow-2xs"
-                                : "border-zinc-200 bg-zinc-50/60 text-zinc-600 hover:bg-white hover:border-zinc-300"
-                            }`}
-                          >
-                            <span className="text-xs font-bold text-zinc-900">
-                              {slot.label}
-                            </span>
-                            <span className="text-[11px] text-zinc-500 mt-0.5">
-                              {slot.time}
-                            </span>
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
-
-                  {/* Special Delivery Notes */}
-                  <div>
-                    <label
-                      htmlFor="special-notes"
-                      className="block text-xs font-semibold text-zinc-700 mb-1.5"
-                    >
-                      Special Delivery Instructions / Landmark{" "}
-                      <span className="text-zinc-400 font-normal">(Optional)</span>
-                    </label>
-                    <textarea
-                      id="special-notes"
-                      name="notes"
-                      rows={2}
-                      maxLength={140}
-                      value={specialNotes}
-                      onChange={(event) => setSpecialNotes(event.target.value)}
-                      placeholder="e.g. Beside Green Life Hospital, please leave package at security guard or ring door bell."
-                      className="w-full resize-y rounded-xl border border-zinc-300 bg-white px-3.5 sm:px-4 py-2.5 text-base sm:text-xs outline-none placeholder:text-zinc-400 focus:border-[#74b83e] focus:ring-2 focus:ring-[#74b83e]/20 transition-all"
-                    />
-                    <div className="mt-1 flex justify-between text-[11px] text-zinc-400">
-                      <span>Helps our rider reach you smoothly</span>
-                      <span>{specialNotes.length} / 140</span>
-                    </div>
-                  </div>
-                </section>
+          
 
                 {/* STEP 3: Payment Method Selection */}
                 <section className="rounded-2xl border border-zinc-200/90 bg-white p-4 sm:p-6 lg:p-7 2xl:p-8 shadow-xs">
@@ -932,8 +774,9 @@ export default function CheckoutPage() {
                         name,
                         tagline,
                         badge,
-                        Icon,
-                        iconUrl,
+                        bgClass,
+                        activeClass,
+                        renderIcon,
                       }) => {
                         const isSelected = selectedPayment === id;
                         return (
@@ -942,7 +785,7 @@ export default function CheckoutPage() {
                             onClick={() => setSelectedPayment(id)}
                             className={`group relative flex cursor-pointer items-center gap-3 sm:gap-3.5 rounded-xl border p-3 sm:p-3.5 transition-all ${
                               isSelected
-                                ? "border-[#74b83e] bg-emerald-50/40 ring-2 ring-[#74b83e]/20"
+                                ? `ring-2 ${activeClass}`
                                 : "border-zinc-200 bg-white hover:border-zinc-300 hover:bg-zinc-50/50"
                             }`}
                           >
@@ -959,7 +802,11 @@ export default function CheckoutPage() {
                             <span
                               className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full border transition-all ${
                                 isSelected
-                                  ? "border-[#74b83e] bg-[#74b83e]"
+                                  ? id === "bkash"
+                                    ? "border-[#E2136E] bg-[#E2136E]"
+                                    : id === "nagad"
+                                    ? "border-[#ED1C24] bg-[#ED1C24]"
+                                    : "border-[#74b83e] bg-[#74b83e]"
                                   : "border-zinc-300 bg-white"
                               }`}
                             >
@@ -969,28 +816,14 @@ export default function CheckoutPage() {
                             </span>
 
                             {/* Icon Box */}
-                            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-zinc-100 bg-zinc-50 p-2 group-hover:scale-105 transition-transform">
-                              {iconUrl ? (
-                                <Image
-                                  src={iconUrl}
-                                  alt={`${name} logo`}
-                                  width={24}
-                                  height={24}
-                                  unoptimized
-                                  className="h-6 w-6 object-contain"
-                                />
-                              ) : (
-                                <Icon
-                                  aria-hidden="true"
-                                  className={`h-5 w-5 ${
-                                    id === "cod"
-                                      ? "text-emerald-600"
-                                      : id === "card"
-                                      ? "text-indigo-600"
-                                      : "text-[#74b83e]"
-                                  }`}
-                                />
-                              )}
+                            <span
+                              className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border p-2 group-hover:scale-105 transition-all shadow-2xs ${
+                                isSelected
+                                  ? bgClass
+                                  : "border-zinc-100 bg-zinc-50/80"
+                              }`}
+                            >
+                              {renderIcon("h-6 w-6")}
                             </span>
 
                             {/* Name & Subtitle */}
@@ -1000,7 +833,15 @@ export default function CheckoutPage() {
                                   {name}
                                 </span>
                                 {badge && (
-                                  <span className="rounded-full bg-zinc-100 px-1.5 sm:px-2 py-0.5 text-[9px] sm:text-[10px] font-semibold text-zinc-600">
+                                  <span
+                                    className={`rounded-full px-1.5 sm:px-2 py-0.5 text-[9px] sm:text-[10px] font-semibold ${
+                                      id === "bkash"
+                                        ? "bg-pink-100 text-[#E2136E]"
+                                        : id === "nagad"
+                                        ? "bg-orange-100 text-orange-700"
+                                        : "bg-zinc-100 text-zinc-600"
+                                    }`}
+                                  >
                                     {badge}
                                   </span>
                                 )}
@@ -1011,7 +852,15 @@ export default function CheckoutPage() {
                             </div>
 
                             {isSelected && (
-                              <Check className="h-4 w-4 shrink-0 text-[#74b83e]" />
+                              <Check
+                                className={`h-4 w-4 shrink-0 ${
+                                  id === "bkash"
+                                    ? "text-[#E2136E]"
+                                    : id === "nagad"
+                                    ? "text-[#ED1C24]"
+                                    : "text-[#74b83e]"
+                                }`}
+                              />
                             )}
                           </label>
                         );
@@ -1023,20 +872,72 @@ export default function CheckoutPage() {
                   {(selectedPayment === "bkash" ||
                     selectedPayment === "nagad" ||
                     selectedPayment === "upay") && (
-                    <div className="rounded-2xl border border-emerald-200 bg-gradient-to-b from-emerald-50/40 to-white p-4 sm:p-6 space-y-4 animate-in fade-in duration-200">
-                      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-emerald-100 pb-3">
-                        <div>
-                          <span className="text-xs font-bold uppercase tracking-wider text-emerald-800">
-                            {selectedPayment.toUpperCase()} Merchant Account
-                          </span>
-                          <div className="flex items-center gap-2 mt-0.5">
-                            <span className="text-base sm:text-lg font-black tracking-wide text-zinc-900 font-mono">
-                              {paymentMethods.find((m) => m.id === selectedPayment)
-                                ?.merchantNumber ?? "01712-345678"}
+                    <div
+                      className={`rounded-2xl border p-4 sm:p-6 space-y-4 animate-in fade-in duration-200 ${
+                        selectedPayment === "bkash"
+                          ? "border-pink-200 bg-gradient-to-b from-pink-50/40 via-white to-white"
+                          : selectedPayment === "nagad"
+                          ? "border-orange-200 bg-gradient-to-b from-orange-50/40 via-white to-white"
+                          : "border-emerald-200 bg-gradient-to-b from-emerald-50/40 via-white to-white"
+                      }`}
+                    >
+                      <div
+                        className={`flex flex-wrap items-center justify-between gap-2 border-b pb-3 ${
+                          selectedPayment === "bkash"
+                            ? "border-pink-100"
+                            : selectedPayment === "nagad"
+                            ? "border-orange-100"
+                            : "border-emerald-100"
+                        }`}
+                      >
+                        <div className="flex items-center gap-3">
+                          <div
+                            className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border p-2 shadow-2xs ${
+                              selectedPayment === "bkash"
+                                ? "border-pink-200 bg-white"
+                                : selectedPayment === "nagad"
+                                ? "border-orange-200 bg-white"
+                                : "border-teal-200 bg-white"
+                            }`}
+                          >
+                            {selectedPayment === "bkash" ? (
+                              <BkashIcon className="h-full w-full" />
+                            ) : selectedPayment === "nagad" ? (
+                              <NagadIcon className="h-full w-full" />
+                            ) : (
+                              <UpayIcon className="h-full w-full" />
+                            )}
+                          </div>
+                          <div>
+                            <span
+                              className={`text-xs font-bold uppercase tracking-wider ${
+                                selectedPayment === "bkash"
+                                  ? "text-[#E2136E]"
+                                  : selectedPayment === "nagad"
+                                  ? "text-[#ED1C24]"
+                                  : "text-emerald-800"
+                              }`}
+                            >
+                              {selectedPayment.toUpperCase()} Merchant Account
                             </span>
-                            <span className="rounded bg-emerald-100 px-2 py-0.5 text-[10px] font-bold text-emerald-800">
-                              Merchant
-                            </span>
+                            <div className="flex items-center gap-2 mt-0.5">
+                              <span className="text-base sm:text-lg font-black tracking-wide text-zinc-900 font-mono">
+                                {paymentMethods.find(
+                                  (m) => m.id === selectedPayment,
+                                )?.merchantNumber ?? "01712-345678"}
+                              </span>
+                              <span
+                                className={`rounded px-2 py-0.5 text-[10px] font-bold ${
+                                  selectedPayment === "bkash"
+                                    ? "bg-pink-100 text-[#E2136E]"
+                                    : selectedPayment === "nagad"
+                                    ? "bg-orange-100 text-orange-800"
+                                    : "bg-emerald-100 text-emerald-800"
+                                }`}
+                              >
+                                Merchant
+                              </span>
+                            </div>
                           </div>
                         </div>
                         <span className="text-xs font-semibold text-zinc-500">
@@ -1531,13 +1432,13 @@ export default function CheckoutPage() {
             </form>
 
             {/* MOBILE ONLY: Sticky Floating Bottom Checkout Action Bar */}
-            <div className="lg:hidden fixed bottom-0 left-0 right-0 z-30 bg-white/95 backdrop-blur-md border-t border-zinc-200 px-4 py-3 shadow-[0_-4px_16px_rgba(0,0,0,0.06)]">
-              <div className="flex items-center justify-between gap-3 max-w-lg mx-auto">
-                <div>
+            <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-zinc-200 px-4 py-3 shadow-[0_-4px_16px_rgba(0,0,0,0.06)]">
+              <div className="mx-auto grid max-w-lg grid-cols-[auto_minmax(0,1fr)] items-center gap-2 sm:gap-3">
+                <div className="min-w-0 shrink-0">
                   <span className="block text-[10px] text-zinc-400 font-medium">
                     Total Amount
                   </span>
-                  <span className="text-lg font-black text-[#74b83e]">
+                  <span className="block whitespace-nowrap text-lg font-black text-[#74b83e]">
                     {formatTaka(total)}
                   </span>
                 </div>
@@ -1545,7 +1446,7 @@ export default function CheckoutPage() {
                   type="submit"
                   form="checkout-form"
                   disabled={isSubmitting}
-                  className="flex-1 rounded-xl bg-[#74b83e] hover:bg-[#639f33] active:scale-[0.98] text-white py-3 px-4 text-sm font-black shadow-sm flex items-center justify-center gap-1.5 transition-all cursor-pointer disabled:opacity-50"
+                  className="w-full rounded-xl bg-[#74b83e] hover:bg-[#639f33] active:scale-[0.98] text-white py-3 px-4 text-sm font-black shadow-sm flex items-center justify-center gap-1.5 transition-all cursor-pointer disabled:opacity-50"
                 >
                   {isSubmitting ? (
                     <>
@@ -1554,12 +1455,12 @@ export default function CheckoutPage() {
                     </>
                   ) : (
                     <>
-                      <span>
+                      <span className="truncate">
                         {selectedPayment === "cod"
                           ? "Place Order"
                           : "Proceed to Pay"}
                       </span>
-                      <ChevronRight className="h-4 w-4" />
+                      <ChevronRight className="h-4 w-4 shrink-0" />
                     </>
                   )}
                 </button>

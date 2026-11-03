@@ -16,7 +16,6 @@ import {
   ShoppingCart,
   Minus,
   Plus,
-  Search,
   MessageSquare,
   ArrowRight,
 } from "lucide-react";
@@ -846,7 +845,7 @@ export default function ProductDetail({ product }: { product: Product }) {
                       className="w-8 h-8 rounded-full bg-zinc-900/90 hover:bg-[#74B83E] text-white flex items-center justify-center transition-all duration-200 shadow-md hover:scale-110 cursor-pointer"
                       title="Quick View"
                     >
-                      <Search className="w-3.5 h-3.5 stroke-[2.5]" />
+                      <Eye className="w-3.5 h-3.5 stroke-[2.5]" />
                     </button>
                     <button
                       type="button"

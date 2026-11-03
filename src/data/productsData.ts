@@ -252,6 +252,126 @@ export const PRODUCTS: Product[] = [
     viewCount: 42,
   },
   {
+    slug: "chicken-drumsticks",
+    name: "Fresh Chicken Drumsticks",
+    price: 3.8,
+    originalPrice: 4.6,
+    image: "/products/prod-chicken-drumsticks.webp",
+    badge: "Sale",
+    badgeColor: "#ef4444",
+    rating: 5,
+    reviewCount: 34,
+    vendor: "FarmFresh",
+    type: "Meat",
+    sizes: ["500 g", "1 kg", "2 kg"],
+    richIn: ["Protein", "Collagen", "Iron", "Zinc"],
+    description:
+      "Tender, juicy farm-raised chicken drumsticks, perfectly cut and cleaned. Antibiotic-residue free and ideal for roasting, tandoori, and curries.",
+    overview:
+      "Our chicken drumsticks come from naturally raised poultry with 100% halal hand slaughtering and hygienic packaging.",
+    healthBenefits:
+      "High in lean protein, vitamin B6, and collagen for strong muscles and joints.",
+    environment:
+      "Raised with ethical animal welfare and natural grain feed.",
+    viewCount: 52,
+  },
+  {
+    slug: "chicken-breast",
+    name: "Boneless Chicken Breast",
+    price: 4.2,
+    originalPrice: 5.0,
+    image: "/products/prod-chicken-breast.webp",
+    badge: "Best Seller",
+    badgeColor: "#74B83E",
+    rating: 5,
+    reviewCount: 42,
+    vendor: "FarmFresh",
+    type: "Meat",
+    sizes: ["500 g", "1 kg", "2 kg"],
+    richIn: ["High Protein", "Low Fat", "Niacin", "Phosphorus"],
+    description:
+      "Premium skinless boneless chicken breast fillets. Ultra-lean, high-protein cut perfect for fitness diets, stir-fries, and grilling.",
+    overview:
+      "100% chemical and hormone-free fresh chicken breast fillets vacuum-sealed for maximum natural freshness.",
+    healthBenefits:
+      "Highest protein-to-fat ratio of all poultry cuts, perfect for muscle recovery and clean eating.",
+    environment:
+      "Produced sustainably with ethical poultry farming standards.",
+    viewCount: 64,
+  },
+  {
+    slug: "mutton",
+    name: "Fresh Farm Mutton (Khasi)",
+    price: 11.5,
+    originalPrice: 13.0,
+    image: "/products/prod-mutton-curry-cut.webp",
+    badge: "Halal Fresh",
+    badgeColor: "#74B83E",
+    rating: 5,
+    reviewCount: 39,
+    vendor: "Bengal Meat",
+    type: "Meat",
+    sizes: ["500 g", "1 kg", "2 kg"],
+    richIn: ["Protein", "Heme Iron", "Zinc", "Vitamin B12"],
+    description:
+      "Tender, grass-fed fresh goat meat (Khasi) curry cut with bone. Perfectly sized pieces for traditional slow-cooked curries and biryanis.",
+    overview:
+      "Sourced from certified organic pastoral farms, slaughtered according to 100% strict Halal principles and cold-chain transported.",
+    healthBenefits:
+      "Naturally lean red meat rich in dietary iron, conjugated linoleic acid (CLA), and essential amino acids.",
+    environment:
+      "Pasture-raised on open green pastures without industrial feedlots.",
+    viewCount: 71,
+  },
+  {
+    slug: "farm-eggs",
+    name: "Country Brown Eggs (12 Pcs)",
+    price: 1.45,
+    originalPrice: 1.8,
+    image: "/products/prod-farm-eggs.webp",
+    badge: "Farm Fresh",
+    badgeColor: "#74B83E",
+    rating: 5,
+    reviewCount: 56,
+    vendor: "NatureFresh",
+    type: "Meat",
+    sizes: ["12 pcs (1 Dozen)", "24 pcs", "30 pcs (Tray)"],
+    richIn: ["Choline", "Lutein", "Vitamin D", "Protein"],
+    description:
+      "Fresh country farm brown eggs with rich golden yolks. Collected daily from healthy, free-roaming hens fed on natural grains.",
+    overview:
+      "Nutritious and clean farm eggs, candled and sanitized for superior quality and maximum freshness.",
+    healthBenefits:
+      "Excellent whole-food source of complete protein, choline for brain health, and lutein for vision protection.",
+    environment:
+      "Cruelty-free, open-barn cage-free egg farming with sustainable manure recycling.",
+    viewCount: 88,
+  },
+  {
+    slug: "cookies",
+    name: "Nuts Cookies",
+    price: 1.2,
+    originalPrice: 1.5,
+    image: "/products/prod-cookies.webp",
+    badge: "Fresh Baked",
+    badgeColor: "#f97316",
+    rating: 5,
+    reviewCount: 38,
+    vendor: "BakeryMaster",
+    type: "Bakery",
+    sizes: ["200 g pack", "400 g pack", "800 g box"],
+    richIn: ["Almonds", "Cashews", "Oats", "Pure Butter"],
+    description:
+      "Crisp, buttery gourmet nut cookies loaded with toasted almonds, cashews, and dark chocolate chips. Baked fresh daily with wholesome ingredients.",
+    overview:
+      "Crafted with pure creamery butter, golden brown sugar, and premium roasted tree nuts for an irresistible crunch and rich buttery aroma.",
+    healthBenefits:
+      "Nutrient-dense snack providing wholesome energy, fiber from whole grains, and healthy plant fats from roasted nuts.",
+    environment:
+      "Made with cage-free eggs, ethically sourced butter, and eco-friendly recyclable packaging.",
+    viewCount: 65,
+  },
+  {
     slug: "buckwheat",
     name: "Whole Buckwheat",
     price: 1.95,
