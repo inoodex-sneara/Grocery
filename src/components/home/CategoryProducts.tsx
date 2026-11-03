@@ -211,7 +211,10 @@ export default function CategoryProducts() {
                         <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center gap-2 z-10">
                           <button
                             type="button"
-                            onClick={() => setQuickViewProduct(product)}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setQuickViewProduct(product);
+                            }}
                             className="w-8 h-8 rounded-full bg-zinc-900/90 hover:bg-[#74B83E] text-white flex items-center justify-center transition-all duration-200 shadow-md hover:scale-110 cursor-pointer"
                             title="Quick View"
                           >

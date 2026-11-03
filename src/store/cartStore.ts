@@ -15,6 +15,7 @@ export interface CartItem {
 
 export interface CartState {
   items: CartItem[];
+  lastAddedItem: { eventId: number; image: string } | null;
   isDrawerOpen: boolean;
   addItem: (item: Omit<CartItem, "quantity"> & { quantity?: number }) => void;
   setQuantity: (id: string, quantity: number) => void;
@@ -29,22 +30,28 @@ export const useCartStore = create<CartState>()(
   persist(
     (set) => ({
       items: [],
+      lastAddedItem: null,
       isDrawerOpen: false,
 
       addItem: (item) =>
         set((state) => {
           const index = state.items.findIndex((existing) => existing.id === item.id);
-          if (index < 0) {
-            return {
-              items: [...state.items, { ...item, quantity: item.quantity ?? 1 }],
-            };
-          }
           return {
-            items: state.items.map((existing, i) =>
-              i === index
-                ? { ...existing, quantity: existing.quantity + (item.quantity ?? 1) }
-                : existing
-            ),
+            items:
+              index < 0
+                ? [...state.items, { ...item, quantity: item.quantity ?? 1 }]
+                : state.items.map((existing, i) =>
+                    i === index
+                      ? {
+                          ...existing,
+                          quantity: existing.quantity + (item.quantity ?? 1),
+                        }
+                      : existing,
+                  ),
+            lastAddedItem: {
+              eventId: (state.lastAddedItem?.eventId ?? 0) + 1,
+              image: item.image,
+            },
           };
         }),
 

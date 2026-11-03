@@ -18,7 +18,12 @@ import {
 } from "lucide-react";
 import { useCartStore } from "@/store/cartStore";
 import { useWishlistStore } from "@/store/wishlistStore";
-import { DEAL_PRODUCTS, FEATURED_DEAL, type DealProduct } from "@/data/dealsData";
+import {
+  DEAL_PRODUCTS,
+  FEATURED_DEAL,
+  FEATURED_DEAL_IMAGE,
+  type DealProduct,
+} from "@/data/dealsData";
 
 /* =========================================
    COUNTDOWN HOOK (end of today = daily deal)
@@ -145,74 +150,82 @@ export default function DealsPage() {
   };
 
   return (
-    <div className="flex-1 bg-zinc-50/50 pb-16">
+    <div className="flex-1 bg-[linear-gradient(180deg,#f6f9f2_0%,#ffffff_48%,#f8faf7_100%)] pb-16">
       {/* =========================================
           GREEN PAGE HEADER BANNER
          ========================================= */}
-      <div className="w-full bg-gradient-to-r from-[#74B83E] to-[#63a032] text-white">
-        <div className="w-full max-w-[1680px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 py-10 sm:py-14 text-center">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/15 backdrop-blur-xs text-xs font-bold tracking-wide mb-4">
-            <Zap className="w-3.5 h-3.5 fill-amber-300 text-amber-300" />
-            <span>Today Only · Fresh Farm Deals</span>
+      <div className="relative isolate w-full overflow-hidden bg-[radial-gradient(ellipse_at_78%_10%,rgba(190,242,100,0.28),transparent_34%),linear-gradient(115deg,#183d26_0%,#245a31_48%,#397a32_100%)] text-white">
+        <div aria-hidden="true" className="pointer-events-none absolute -right-24 -top-40 h-[28rem] w-[28rem] rounded-full border border-white/10" />
+        <div aria-hidden="true" className="pointer-events-none absolute -right-8 -top-24 h-[20rem] w-[20rem] rounded-full border border-white/10" />
+        <div aria-hidden="true" className="pointer-events-none absolute -bottom-36 left-[38%] h-72 w-72 rounded-full bg-lime-300/10 blur-3xl" />
+        <div className="relative mx-auto grid w-full max-w-[1680px] items-center gap-8 px-4 py-9 sm:px-6 sm:py-12 md:px-8 lg:grid-cols-[1fr_auto] lg:px-10 lg:py-14 xl:px-12">
+          <div>
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3.5 py-1.5 text-xs font-bold tracking-wide shadow-sm backdrop-blur-sm">
+              <Zap className="h-3.5 w-3.5 fill-amber-300 text-amber-300" />
+              <span>Today only <span className="mx-1 text-white/45">·</span> Fresh from the farm</span>
+            </div>
+            <h1 className="mt-4 max-w-2xl text-3xl font-extrabold tracking-tight sm:text-4xl md:text-5xl">
+              Fresh deals, <span className="text-lime-200">better days.</span>
+            </h1>
+            <p className="mt-3 max-w-xl text-sm leading-6 text-white/75 sm:text-base">
+              Handpicked favourites at a little less. Shop today&apos;s best prices while they last.
+            </p>
+            <nav className="mt-5 flex items-center gap-1.5 text-xs font-medium text-white/65 sm:text-sm">
+              <Link href="/" className="transition-colors hover:text-white">Home</Link>
+              <ChevronRight className="h-3.5 w-3.5" />
+              <span className="text-white/90">Deals of the day</span>
+            </nav>
           </div>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-lemonada">
-            Deal Of The Day
-          </h1>
-          {/* Breadcrumb */}
-          <nav className="mt-3 flex items-center justify-center gap-1.5 text-xs sm:text-sm text-white/85 font-medium">
-            <Link href="/" className="hover:text-white hover:underline transition-colors">
-              Home
-            </Link>
-            <ChevronRight className="w-3.5 h-3.5" />
-            <span className="text-white">Deal Of The Day</span>
-          </nav>
 
-          {/* Daily Countdown */}
-          <div className="mt-6 inline-flex items-center gap-3 sm:gap-4">
-            <span className="hidden sm:flex items-center gap-1.5 text-xs font-bold text-white/90 mr-1">
-              <Timer className="w-4 h-4" />
-              Hurry up! Offer ends in
-            </span>
-            <div className="flex items-center gap-2 sm:gap-3">
-              <CountdownBox value={hours} label="Hours" />
-              <span className="text-xl font-bold text-white/70 -mt-4">:</span>
-              <CountdownBox value={minutes} label="Minutes" />
-              <span className="text-xl font-bold text-white/70 -mt-4">:</span>
-              <CountdownBox value={seconds} label="Seconds" />
+          <div className="rounded-2xl border border-white/15 bg-black/10 p-4 shadow-xl shadow-black/10 backdrop-blur-sm sm:p-5">
+            <div className="mb-3 flex items-center justify-center gap-2 text-xs font-bold text-white/85 sm:text-sm">
+              <Timer className="h-4 w-4 text-lime-200" />
+              Offers refresh in
+            </div>
+            <div className="flex items-start gap-2 sm:gap-3">
+              <CountdownBox value={hours} label="Hours" size="lg" />
+              <span className="mt-3 text-xl font-bold text-white/45">:</span>
+              <CountdownBox value={minutes} label="Minutes" size="lg" />
+              <span className="mt-3 text-xl font-bold text-white/45">:</span>
+              <CountdownBox value={seconds} label="Seconds" size="lg" />
             </div>
           </div>
         </div>
       </div>
 
-      <div className="w-full max-w-[1680px] mx-auto px-3 sm:px-6 md:px-8 lg:px-10 xl:px-12 pt-10 sm:pt-14 space-y-12 sm:space-y-16">
+      <div className="mx-auto w-full max-w-[1680px] space-y-12 px-3 pt-7 sm:space-y-16 sm:px-6 sm:pt-10 md:px-8 lg:px-10 xl:px-12">
         {/* =========================================
             FEATURED DEAL (HERO CARD)
            ========================================= */}
-        <section className="bg-white rounded-3xl border border-zinc-200/80 shadow-xs overflow-hidden">
-          <div className="grid grid-cols-1 lg:grid-cols-2">
+        <section className="grid grid-cols-1 items-stretch gap-6 sm:gap-8 lg:grid-cols-[1.02fr_0.98fr] lg:gap-12">
             {/* Featured Image */}
-            <div className="relative bg-gradient-to-br from-amber-50 to-orange-50 p-6 sm:p-10 flex items-center justify-center min-h-[300px] sm:min-h-[400px]">
-              <span className="absolute top-5 left-5 px-3 py-1 rounded-full bg-red-600 text-white text-xs font-extrabold shadow-md z-10">
+            <div className="relative flex min-h-[290px] sm:min-h-[440px] items-center justify-center p-4 sm:p-8">
+              <span className="absolute left-2 top-2 sm:left-4 sm:top-4 z-10 inline-flex items-center gap-1.5 rounded-full bg-red-600 px-3.5 py-1.5 text-xs font-extrabold text-white shadow-md shadow-red-900/15">
+                <Zap className="h-3.5 w-3.5 fill-white" />
                 -{featuredDiscount}% OFF
               </span>
               <Image
-                src={FEATURED_DEAL.image}
+                src={FEATURED_DEAL_IMAGE}
                 alt={FEATURED_DEAL.name}
-                width={420}
-                height={420}
-                className="object-contain w-full max-w-[320px] sm:max-w-[420px] drop-shadow-xl hover:scale-105 transition-transform duration-500"
+                width={460}
+                height={460}
+                className="relative z-[1] w-full max-w-[340px] sm:max-w-[440px] object-contain drop-shadow-[0_24px_30px_rgba(30,41,20,0.16)] transition-transform duration-500 hover:scale-105"
                 priority
               />
+              <span className="absolute bottom-2 sm:bottom-4 left-1/2 z-10 inline-flex -translate-x-1/2 items-center gap-1.5 whitespace-nowrap rounded-full border border-emerald-200/80 bg-white/95 px-3.5 py-1.5 text-[10px] font-bold uppercase tracking-[0.13em] text-emerald-800 shadow-md backdrop-blur-sm">
+                <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" />
+                Fresh &amp; premium quality
+              </span>
             </div>
 
             {/* Featured Details */}
-            <div className="p-6 sm:p-10 flex flex-col justify-center">
-              <span className="inline-flex self-start items-center gap-1.5 px-3 py-1 rounded-full bg-[#74B83E]/10 text-[#74B83E] text-[11px] font-bold uppercase tracking-wide">
+            <div className="flex flex-col justify-center py-2 sm:py-5 lg:py-8">
+              <span className="inline-flex self-start items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1.5 text-[11px] font-bold uppercase tracking-wide text-emerald-700 ring-1 ring-emerald-100">
                 <Tag className="w-3 h-3" />
                 {FEATURED_DEAL.category} · Best Deal
               </span>
 
-              <h2 className="mt-3 text-2xl sm:text-3xl md:text-4xl font-extrabold text-zinc-900 tracking-tight">
+              <h2 className="mt-3 text-2xl font-extrabold tracking-tight text-zinc-900 sm:text-3xl md:text-4xl">
                 <Link
                   href={`/products/${FEATURED_DEAL.slug}`}
                   className="transition-colors hover:text-[#54892f]"
@@ -220,6 +233,9 @@ export default function DealsPage() {
                 {FEATURED_DEAL.name}
                 </Link>
               </h2>
+              <span className="mt-1 text-xs font-semibold tracking-wide text-zinc-400">
+                {FEATURED_DEAL.unit}
+              </span>
 
               <div className="mt-2 flex items-center gap-2">
                 <Stars rating={FEATURED_DEAL.rating} />
@@ -228,36 +244,39 @@ export default function DealsPage() {
                 </span>
               </div>
 
-              <p className="mt-3 text-sm text-zinc-600 leading-relaxed max-w-lg">
+              <p className="mt-3 max-w-lg text-sm leading-relaxed text-zinc-600">
                 Hand-picked premium quality {FEATURED_DEAL.name.toLowerCase()} sourced
                 straight from organic partner farms. Limited stock at this price — once
                 the daily deal resets, the offer is gone!
               </p>
 
               {/* Price */}
-              <div className="mt-5 flex items-center gap-3">
-                <span className="text-3xl sm:text-4xl font-extrabold text-[#74B83E]">
+              <div className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-2 border-t border-zinc-100 pt-4">
+                <span className="text-3xl font-extrabold tracking-tight text-emerald-700 sm:text-4xl">
                   Tk {FEATURED_DEAL.price}
                 </span>
                 <span className="text-lg text-zinc-400 line-through font-semibold">
                   Tk {FEATURED_DEAL.oldPrice}
                 </span>
-                <span className="px-2.5 py-1 rounded-full bg-red-50 text-red-600 text-xs font-extrabold">
+                <span className="rounded-full bg-red-50 px-2.5 py-1 text-xs font-extrabold text-red-600 ring-1 ring-red-100">
                   You save Tk {FEATURED_DEAL.oldPrice - FEATURED_DEAL.price}
                 </span>
               </div>
 
               {/* Stock Progress Bar */}
-              <div className="mt-5 max-w-md">
-                <div className="flex items-center justify-between text-xs font-bold text-zinc-600 mb-1.5">
+              <div className="mt-4 max-w-md rounded-2xl bg-white/75 p-4 shadow-sm ring-1 ring-zinc-200/70">
+                <div className="mb-1.5 flex items-center justify-between text-xs font-bold text-zinc-600">
                   <span>
                     Sold:{" "}
                     <span className="text-red-500">{FEATURED_DEAL.sold}</span> /{" "}
                     {FEATURED_DEAL.total}
                   </span>
-                  <span className="text-zinc-400">Hurry, almost gone!</span>
+                  <span className="flex items-center gap-1 text-zinc-400">
+                    <Timer className="h-3 w-3" />
+                    Hurry, almost gone!
+                  </span>
                 </div>
-                <div className="h-2 w-full bg-zinc-100 rounded-full overflow-hidden">
+                <div className="h-2 w-full overflow-hidden rounded-full bg-zinc-200/70">
                   <div
                     className="h-full bg-gradient-to-r from-[#74B83E] to-[#8bd450] rounded-full transition-all duration-700"
                     style={{
@@ -268,10 +287,10 @@ export default function DealsPage() {
               </div>
 
               {/* Actions */}
-              <div className="mt-7 flex flex-wrap items-center gap-3">
+              <div className="mt-6 flex flex-wrap items-center gap-3">
                 <Link
                   href={`/products/${FEATURED_DEAL.slug}`}
-                  className="rounded-full border border-zinc-200 px-6 py-3 text-sm font-bold text-zinc-700 transition-colors hover:border-[#74B83E] hover:text-[#54892f]"
+                  className="rounded-full border border-zinc-200 px-6 py-3 text-sm font-bold text-zinc-700 transition-colors hover:border-emerald-600 hover:bg-emerald-50 hover:text-emerald-800"
                 >
                   View deal details
                 </Link>
@@ -281,7 +300,7 @@ export default function DealsPage() {
                   className={`px-7 py-3 rounded-full text-sm font-bold flex items-center gap-2 transition-all shadow-xs cursor-pointer ${
                     addedItems[FEATURED_DEAL.id]
                       ? "bg-zinc-900 text-white"
-                      : "bg-[#74B83E] hover:bg-[#639f33] text-white hover:scale-[1.02]"
+                      : "bg-emerald-700 text-white hover:scale-[1.02] hover:bg-emerald-800"
                   }`}
                 >
                   {addedItems[FEATURED_DEAL.id] ? (
@@ -302,7 +321,7 @@ export default function DealsPage() {
                   className={`w-12 h-12 rounded-full flex items-center justify-center transition-all cursor-pointer ${
                     wishlistItems.some((item) => item.id === FEATURED_DEAL.id)
                       ? "bg-red-500 text-white"
-                      : "bg-emerald-50 text-[#74B83E] hover:bg-red-500 hover:text-white"
+                      : "bg-emerald-50 text-emerald-700 hover:bg-red-500 hover:text-white"
                   }`}
                   aria-label="Add to Wishlist"
                 >
@@ -317,67 +336,50 @@ export default function DealsPage() {
               </div>
 
               {/* Delivery Info */}
-              <div className="mt-6 flex flex-wrap items-center gap-4 sm:gap-6 text-xs font-semibold text-zinc-500">
+              <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-zinc-100 pt-4 text-xs font-semibold text-zinc-500 sm:gap-6">
                 <span className="flex items-center gap-1.5">
-                  <Truck className="w-4 h-4 text-[#74B83E]" />
+                  <Truck className="h-4 w-4 text-emerald-700" />
                   Free delivery over Tk 500
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <ShieldCheck className="w-4 h-4 text-[#74B83E]" />
+                  <ShieldCheck className="h-4 w-4 text-emerald-700" />
                   100% fresh guarantee
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <RotateCcw className="w-4 h-4 text-[#74B83E]" />
+                  <RotateCcw className="h-4 w-4 text-emerald-700" />
                   Easy 7-day returns
                 </span>
               </div>
             </div>
-          </div>
         </section>
 
         {/* =========================================
             ALL DEALS SECTION HEADER
            ========================================= */}
         <section>
-          <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-12">
-            {/* Decorative Leaves */}
-            <div className="flex items-center justify-center mb-2">
-              <svg
-                className="w-10 h-7 text-[#74B83E]/80"
-                viewBox="0 0 40 28"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M18 18C12 18 6 13 4 7C10 5 18 9 18 18Z"
-                  fill="#74B83E"
-                  fillOpacity="0.85"
-                />
-                <path
-                  d="M20 2C24 8 23 15 20 22C17 15 16 8 20 2Z"
-                  fill="#8bd450"
-                  fillOpacity="0.9"
-                />
-                <path
-                  d="M22 18C28 18 34 13 36 7C30 5 22 9 22 18Z"
-                  fill="#74B83E"
-                  fillOpacity="0.85"
-                />
-              </svg>
+          <div className="mb-6 flex flex-col gap-4 sm:mb-8 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <span className="inline-flex items-center gap-1.5 text-[11px] font-extrabold uppercase tracking-[0.18em] text-emerald-700">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                Handpicked for you
+              </span>
+              <h2 className="mt-1 text-2xl font-extrabold tracking-tight text-zinc-900 sm:text-3xl">
+                Today&apos;s <span className="text-emerald-700">hot deals</span>
+              </h2>
+              <p className="mt-1.5 max-w-xl text-xs leading-relaxed text-zinc-500 sm:text-sm">
+                Fresh favourites and pantry staples at prices worth stocking up for.
+              </p>
             </div>
-            <h2 className="text-2xl sm:text-3xl md:text-[34px] font-bold text-[#74B83E] tracking-tight font-lemonada">
-              Today&apos;s Hot Deals
-            </h2>
-            <p className="text-xs sm:text-sm text-zinc-500 mt-2 font-normal leading-relaxed">
-              Grab today&apos;s freshest picks at unbeatable prices — offers reset at
-              midnight, so stock up before they&apos;re gone!
-            </p>
+            <span className="inline-flex w-fit items-center gap-2 rounded-full border border-emerald-100 bg-white px-3.5 py-2 text-xs font-bold text-zinc-600 shadow-sm">
+              <Tag className="h-3.5 w-3.5 text-emerald-700" />
+              {DEAL_PRODUCTS.length} limited-time offers
+            </span>
           </div>
 
           {/* =========================================
               DEAL PRODUCT GRID
              ========================================= */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5 lg:gap-6">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 xl:grid-cols-4">
             {DEAL_PRODUCTS.map((product) => {
               const discount = Math.round(
                 (1 - product.price / product.oldPrice) * 100
@@ -389,17 +391,18 @@ export default function DealsPage() {
               const soldPercent = (product.sold / product.total) * 100;
 
               const card = (
-                <div className="group relative bg-white border border-zinc-200/80 hover:border-[#74B83E] rounded-2xl p-3 sm:p-4 flex flex-col transition-all duration-300 hover:shadow-md overflow-hidden h-full">
+                <div className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-zinc-200/80 bg-white p-3 shadow-[0_8px_24px_-20px_rgba(24,56,35,0.5)] transition-all duration-300 hover:-translate-y-1 hover:border-emerald-300 hover:shadow-[0_20px_38px_-24px_rgba(24,56,35,0.38)] sm:p-4">
                   {/* Image */}
-                  <div className="relative w-full h-36 sm:h-44 bg-zinc-50/70 rounded-xl flex items-center justify-center p-2 mb-3">
+                  <div className="relative mb-3 flex h-44 w-full items-center justify-center overflow-hidden rounded-xl bg-[radial-gradient(circle_at_50%_42%,#ffffff_0%,#f8faf5_58%,#eef4e9_100%)] p-2 sm:h-48">
+                    <span aria-hidden="true" className="pointer-events-none absolute h-32 w-32 rounded-full border border-white/90 transition-transform duration-500 group-hover:scale-110 sm:h-36 sm:w-36" />
                     {/* Discount Badge */}
-                    <span className="absolute top-2 left-2 z-10 px-2 py-0.5 rounded-full text-[10px] font-bold text-white bg-red-600 shadow-2xs select-none">
+                    <span className="absolute left-2 top-2 z-10 rounded-full bg-red-600 px-2.5 py-1 text-[10px] font-extrabold text-white shadow-md shadow-red-900/15">
                       -{discount}%
                     </span>
 
                     {/* Per-product timer chip */}
                     {product.endsInHours && (
-                      <span className="absolute top-2 right-2 z-10 px-2 py-0.5 rounded-full text-[10px] font-bold text-white bg-zinc-900/90 shadow-2xs select-none flex items-center gap-1">
+                      <span className="absolute right-2 top-2 z-10 flex items-center gap-1 rounded-full border border-white/15 bg-zinc-900/85 px-2.5 py-1 text-[10px] font-bold text-white shadow-sm backdrop-blur-sm">
                         <Timer className="w-2.5 h-2.5" />
                         {product.endsInHours}h left
                       </span>
@@ -420,30 +423,17 @@ export default function DealsPage() {
                     </Link>
 
                     {/* Floating actions on hover */}
-                    <div className="absolute inset-x-0 bottom-1 flex items-center justify-center gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-20">
-                      <button
-                        type="button"
-                        onClick={(e) => handleAddToCart(product, e)}
-                        className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-zinc-900 text-white flex items-center justify-center hover:bg-[#74B83E] transition-all duration-200 shadow-md cursor-pointer hover:scale-110"
-                        title="Add to Cart"
-                        aria-label="Add to Cart"
-                      >
-                        {isAdded ? (
-                          <Check className="w-3.5 h-3.5 stroke-[2.5]" />
-                        ) : (
-                          <ShoppingCart className="w-3.5 h-3.5 stroke-[2.5]" />
-                        )}
-                      </button>
+                    <div className="absolute right-2 top-11 z-20 flex items-center justify-center opacity-100 transition-opacity duration-200 sm:opacity-0 sm:group-hover:opacity-100">
                       <button
                         type="button"
                         onClick={(e) => toggleWishlist(product.id, e)}
-                        className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center transition-all duration-200 shadow-md cursor-pointer hover:scale-110 ${
+                        className={`flex h-8 w-8 cursor-pointer items-center justify-center rounded-full shadow-md transition-all duration-200 hover:scale-110 ${
                           isWishlisted
                             ? "bg-red-500 text-white"
                             : "bg-zinc-900 text-white hover:bg-red-500"
                         }`}
                         title={isWishlisted ? "Remove from Wishlist" : "Add to Wishlist"}
-                        aria-label="Wishlist"
+                        aria-label={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
                       >
                         <Heart
                           className={`w-3.5 h-3.5 stroke-[2.5] ${
@@ -455,19 +445,20 @@ export default function DealsPage() {
                   </div>
 
                   {/* Category */}
-                  <span className="text-[10px] font-bold uppercase tracking-wide text-zinc-400">
+                  <span className="text-[10px] font-bold uppercase tracking-[0.13em] text-emerald-700/75">
                     {product.category}
                   </span>
 
                   {/* Name */}
-                  <h3 className="mt-0.5 text-sm sm:text-base font-bold text-zinc-900 group-hover:text-[#74B83E] transition-colors truncate">
+                  <h3 className="mt-0.5 truncate text-sm font-bold text-zinc-900 transition-colors group-hover:text-emerald-700 sm:text-base">
                     <Link href={`/products/${product.slug}`}>
                     {product.name}
                     </Link>
                   </h3>
+                  <span className="mt-0.5 text-[11px] font-medium text-zinc-400">{product.unit}</span>
 
                   {/* Rating */}
-                  <div className="flex items-center gap-1.5 mt-1">
+                  <div className="mt-1.5 flex items-center gap-1.5">
                     <Stars rating={product.rating} />
                     <span className="text-[11px] text-zinc-400 font-medium">
                       ({product.rating}.0)
@@ -475,25 +466,28 @@ export default function DealsPage() {
                   </div>
 
                   {/* Price */}
-                  <div className="flex items-center gap-2 mt-1.5">
-                    <span className="text-sm sm:text-base font-extrabold text-[#74B83E]">
+                  <div className="mt-2 flex items-center gap-2">
+                    <span className="text-base font-extrabold tracking-tight text-emerald-700 sm:text-lg">
                       Tk {product.price}
                     </span>
-                    <span className="text-xs text-zinc-400 line-through font-normal">
+                    <span className="text-xs font-medium text-zinc-400 line-through">
                       Tk {product.oldPrice}
+                    </span>
+                    <span className="ml-auto rounded-full bg-emerald-50 px-2 py-1 text-[10px] font-extrabold text-emerald-800">
+                      Save Tk {product.oldPrice - product.price}
                     </span>
                   </div>
 
                   {/* Sold progress bar */}
-                  <div className="mt-3">
-                    <div className="flex items-center justify-between text-[10px] font-bold text-zinc-500 mb-1">
+                  <div className="mt-3 rounded-xl bg-zinc-50 px-3 py-2.5">
+                    <div className="mb-1.5 flex items-center justify-between text-[10px] font-bold text-zinc-500">
                       <span>
                         Sold <span className="text-red-500">{product.sold}</span> /{" "}
                         {product.total}
                       </span>
                       <span>{Math.round(soldPercent)}%</span>
                     </div>
-                    <div className="h-1.5 w-full bg-zinc-100 rounded-full overflow-hidden">
+                    <div className="h-1.5 w-full overflow-hidden rounded-full bg-zinc-200/70">
                       <div
                         className={`h-full rounded-full ${
                           soldPercent >= 75
@@ -506,14 +500,14 @@ export default function DealsPage() {
                   </div>
 
                   {/* Mobile Add to Cart button */}
-                  <div className="mt-3 sm:hidden">
+                  <div className="mt-3">
                     <button
                       type="button"
                       onClick={(e) => handleAddToCart(product, e)}
-                      className={`w-full text-xs font-bold px-3 py-2 rounded-full transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+                      className={`flex w-full cursor-pointer items-center justify-center gap-1.5 rounded-full px-3 py-2.5 text-xs font-bold shadow-sm transition-all ${
                         isAdded
                           ? "bg-zinc-900 text-white"
-                          : "bg-[#74B83E] text-white hover:bg-[#639f33]"
+                          : "bg-emerald-700 text-white hover:bg-emerald-800"
                       }`}
                     >
                       {isAdded ? (

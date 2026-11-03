@@ -129,3 +129,4 @@ export const DEAL_PRODUCTS: DealProduct[] = [
 ];
 
 export const FEATURED_DEAL = DEAL_PRODUCTS[1];
+export const FEATURED_DEAL_IMAGE = "/products/premium-almonds-cutout-v2.png";

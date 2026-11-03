@@ -8,7 +8,6 @@ import {
   Eye,
   Clock,
   Share2,
-  ChevronDown,
   X,
   Star,
   Check,
@@ -17,9 +16,8 @@ import {
   Minus,
   Plus,
   MessageSquare,
-  ArrowRight,
 } from "lucide-react";
-import { Product, PRODUCTS, getRelatedProducts } from "@/data/productsData";
+import { Product, getRelatedProducts } from "@/data/productsData";
 import { useCartStore } from "@/store/cartStore";
 import { formatTaka } from "@/lib/currency";
 import { useWishlistStore } from "@/store/wishlistStore";
@@ -58,8 +56,6 @@ export default function ProductDetail({ product }: { product: Product }) {
   const [addedToCart, setAddedToCart] = useState<boolean>(false);
   const [copied, setCopied] = useState<boolean>(false);
   const [isWriteReviewOpen, setIsWriteReviewOpen] = useState<boolean>(false);
-  const [isRecentlyViewedOpen, setIsRecentlyViewedOpen] =
-    useState<boolean>(false);
 
   // Quick view modal for "You may also like"
   const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(null);
@@ -72,9 +68,6 @@ export default function ProductDetail({ product }: { product: Product }) {
   const [newReviewComment, setNewReviewComment] = useState("");
   const [reviewsList, setReviewsList] = useState<ReviewItem[]>([]);
   const [reviewSubmitted, setReviewSubmitted] = useState(false);
-
-  // Recently viewed products
-  const [recentlyViewed, setRecentlyViewed] = useState<Product[]>([]);
 
   const addItem = useCartStore((state) => state.addItem);
   const wishlistItems = useWishlistStore((state) => state.items);
@@ -94,33 +87,6 @@ export default function ProductDetail({ product }: { product: Product }) {
     setSelectedRichIn(product.richIn?.[0] || "Vitamin C");
     setQuantity(1);
   }, [product]);
-
-  // Manage recently viewed products in localStorage
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      try {
-        const stored = localStorage.getItem("groca-recently-viewed");
-        const list: string[] = stored ? JSON.parse(stored) : [];
-        const prods = list
-          .map((slug) => PRODUCTS.find((p) => p.slug === slug))
-          .filter((p): p is Product => p !== undefined && p !== null)
-          .filter((p) => p.slug !== product.slug);
-        setRecentlyViewed(prods.slice(0, 6));
-
-        // Save current product to recently viewed
-        const updatedSlugs = [
-          product.slug,
-          ...list.filter((s) => s !== product.slug),
-        ].slice(0, 10);
-        localStorage.setItem(
-          "groca-recently-viewed",
-          JSON.stringify(updatedSlugs),
-        );
-      } catch (e) {
-        // Safe localStorage fallback
-      }
-    }
-  }, [product.slug]);
 
   const handleAddToCart = () => {
     addItem({
@@ -188,101 +154,6 @@ export default function ProductDetail({ product }: { product: Product }) {
   return (
     <div className="w-full min-h-screen bg-white relative">
       {/* Breadcrumb Navigation inside Main instead of bulky green header */}
-
-      {/* Floating Recently Viewed Pill on the Right Side (Matches Screenshot 1 & 2) */}
-      <button
-        type="button"
-        onClick={() => setIsRecentlyViewedOpen(!isRecentlyViewedOpen)}
-        className="fixed right-0 top-1/2 -translate-y-1/2 z-30 bg-[#74B83E] hover:bg-[#639f33] text-white text-xs font-semibold px-3 py-2 rounded-l-md shadow-lg flex items-center gap-1.5 cursor-pointer transition-all hover:pr-4"
-        title="Recently Viewed"
-      >
-        <span>Recently Viewed</span>
-        <ChevronDown
-          className={`w-3.5 h-3.5 transition-transform duration-200 ${
-            isRecentlyViewedOpen ? "rotate-90" : "-rotate-90"
-          }`}
-        />
-      </button>
-
-      {/* Recently Viewed Slide-over Panel */}
-      {isRecentlyViewedOpen && (
-        <div className="fixed inset-0 z-50 overflow-hidden bg-black/40 backdrop-blur-2xs transition-opacity animate-in fade-in">
-          <div
-            className="absolute inset-0"
-            onClick={() => setIsRecentlyViewedOpen(false)}
-          />
-          <aside
-            aria-label="Recently viewed products"
-            className="fixed inset-y-0 right-0 max-w-full flex pl-10"
-          >
-            <div className="w-screen max-w-sm bg-white shadow-2xl flex flex-col animate-in slide-in-from-right duration-300">
-              <div className="p-4 border-b border-zinc-100 flex items-center justify-between bg-[#74B83E] text-white">
-                <h3 className="font-bold text-base flex items-center gap-2">
-                  <Clock className="w-4 h-4" />
-                  <span>Recently Viewed</span>
-                </h3>
-                <button
-                  type="button"
-                  onClick={() => setIsRecentlyViewedOpen(false)}
-                  className="p-1 hover:bg-white/20 rounded-md transition-colors cursor-pointer"
-                  aria-label="Close panel"
-                >
-                  <X className="w-5 h-5 text-white" />
-                </button>
-              </div>
-
-              <div className="flex-1 overflow-y-auto p-4 space-y-3">
-                {recentlyViewed.length === 0 ? (
-                  <div className="text-center py-12 text-zinc-500 text-sm">
-                    <p>No other recently viewed products yet.</p>
-                    <p className="text-xs text-zinc-400 mt-1">
-                      Browse our store to discover fresh items!
-                    </p>
-                  </div>
-                ) : (
-                  recentlyViewed.map((item) => (
-                    <Link
-                      key={item.slug}
-                      href={`/products/${item.slug}`}
-                      onClick={() => setIsRecentlyViewedOpen(false)}
-                      className="flex items-center gap-3 p-2.5 rounded-xl border border-zinc-100 hover:border-[#74B83E] hover:bg-zinc-50 transition-all group"
-                    >
-                      <div className="relative w-14 h-14 bg-white rounded-lg border border-zinc-100 overflow-hidden shrink-0 flex items-center justify-center p-1">
-                        <Image
-                          src={item.image}
-                          alt={item.name}
-                          fill
-                          className="object-contain p-1"
-                        />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <h4 className="text-xs font-bold text-zinc-900 group-hover:text-[#74B83E] truncate transition-colors">
-                          {item.name}
-                        </h4>
-                        <p className="text-xs text-zinc-500">{item.type}</p>
-                        <p className="text-xs font-extrabold text-[#74B83E] mt-0.5">
-                          {formatTaka(item.price)}
-                        </p>
-                      </div>
-                      <ArrowRight className="w-4 h-4 text-zinc-300 group-hover:text-[#74B83E] transition-colors" />
-                    </Link>
-                  ))
-                )}
-              </div>
-
-              <div className="p-4 border-t border-zinc-100 bg-zinc-50">
-                <Link
-                  href="/shop"
-                  onClick={() => setIsRecentlyViewedOpen(false)}
-                  className="block w-full py-2.5 text-center text-xs font-bold text-white bg-[#74B83E] hover:bg-[#639f33] rounded-lg shadow-xs transition-colors"
-                >
-                  Browse Full Catalog
-                </Link>
-              </div>
-            </div>
-          </aside>
-        </div>
-      )}
 
       {/* =========================================
           2. MAIN PRODUCT OVERVIEW SECTION
