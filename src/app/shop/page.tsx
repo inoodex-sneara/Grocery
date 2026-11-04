@@ -5,6 +5,7 @@ import { useWishlistStore } from "@/store/wishlistStore";
 import { useState, useMemo, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
+import { SHOP_CATEGORY_NAMES, type ShopCategory } from "@/data/shopCategories";
 import {
   ShoppingCart,
   Star,
@@ -23,7 +24,7 @@ import {
 interface ShopProduct {
   id: string;
   name: string;
-  category: "Fresh Fruits" | "Vegetables" | "Grains & Cereals" | "Dairy & Eggs";
+  category: ShopCategory;
   price: number;
   oldPrice?: number;
   unit: string;
@@ -37,7 +38,7 @@ const SHOP_PRODUCTS: ShopProduct[] = [
   {
     id: "shop-1",
     name: "Fresh Whole Watermelon",
-    category: "Fresh Fruits",
+    category: SHOP_CATEGORY_NAMES.fruits,
     price: 180,
     oldPrice: 220,
     unit: "1 pc (approx 2.5kg)",
@@ -49,7 +50,7 @@ const SHOP_PRODUCTS: ShopProduct[] = [
   {
     id: "shop-2",
     name: "Farm Fresh Vine Tomatoes",
-    category: "Vegetables",
+    category: SHOP_CATEGORY_NAMES.vegetables,
     price: 60,
     oldPrice: 85,
     unit: "1 kg",
@@ -61,7 +62,7 @@ const SHOP_PRODUCTS: ShopProduct[] = [
   {
     id: "shop-4",
     name: "Farm Fresh Country Brown Eggs",
-    category: "Dairy & Eggs",
+    category: SHOP_CATEGORY_NAMES.eggs,
     price: 145,
     oldPrice: 165,
     unit: "12 pcs (1 Dozen)",
@@ -73,7 +74,7 @@ const SHOP_PRODUCTS: ShopProduct[] = [
   {
     id: "shop-9",
     name: "Fresh Wild Oyster Mushrooms",
-    category: "Vegetables",
+    category: SHOP_CATEGORY_NAMES.vegetables,
     price: 120,
     oldPrice: 150,
     unit: "250g pack",
@@ -84,7 +85,7 @@ const SHOP_PRODUCTS: ShopProduct[] = [
   {
     id: "shop-17",
     name: "Fresh Juicy Valencia Oranges",
-    category: "Fresh Fruits",
+    category: SHOP_CATEGORY_NAMES.fruits,
     price: 240,
     oldPrice: 280,
     unit: "1 kg",
@@ -96,7 +97,7 @@ const SHOP_PRODUCTS: ShopProduct[] = [
   {
     id: "shop-20",
     name: "Fresh Seedless Red Grapes",
-    category: "Fresh Fruits",
+    category: SHOP_CATEGORY_NAMES.fruits,
     price: 380,
     oldPrice: 450,
     unit: "500g bunch",
@@ -108,7 +109,7 @@ const SHOP_PRODUCTS: ShopProduct[] = [
   {
     id: "shop-26",
     name: "Organic Whole Grain Buckwheat",
-    category: "Grains & Cereals",
+    category: SHOP_CATEGORY_NAMES.grains,
     price: 195,
     oldPrice: 240,
     unit: "1 kg pack",
@@ -119,7 +120,7 @@ const SHOP_PRODUCTS: ShopProduct[] = [
   {
     id: "shop-28",
     name: "Natural Brown Lentils & Horse Gram",
-    category: "Grains & Cereals",
+    category: SHOP_CATEGORY_NAMES.grains,
     price: 140,
     oldPrice: 175,
     unit: "1 kg pack",
@@ -130,7 +131,7 @@ const SHOP_PRODUCTS: ShopProduct[] = [
   {
     id: "shop-cauliflower",
     name: "Fresh Farm Cauliflower (Fulcopy)",
-    category: "Vegetables",
+    category: SHOP_CATEGORY_NAMES.vegetables,
     price: 60,
     oldPrice: 80,
     unit: "1 pc (800g)",
@@ -142,7 +143,7 @@ const SHOP_PRODUCTS: ShopProduct[] = [
   {
     id: "shop-chilli",
     name: "Fresh Kacha Morich (Green Chilli)",
-    category: "Vegetables",
+    category: SHOP_CATEGORY_NAMES.vegetables,
     price: 40,
     oldPrice: 60,
     unit: "250g pack",
@@ -150,14 +151,107 @@ const SHOP_PRODUCTS: ShopProduct[] = [
     rating: 4.9,
     inStock: true,
   },
+  {
+    id: "shop-chicken",
+    name: "Fresh Chicken",
+    category: SHOP_CATEGORY_NAMES.meat,
+    price: 320,
+    oldPrice: 450,
+    unit: "1 kg",
+    image: "/products/prod-chicken.webp",
+    rating: 4.9,
+    badge: "Farm Fresh",
+    inStock: true,
+  },
+  {
+    id: "shop-chicken-drumsticks",
+    name: "Fresh Chicken Drumsticks",
+    category: SHOP_CATEGORY_NAMES.meat,
+    price: 380,
+    oldPrice: 460,
+    unit: "1 kg",
+    image: "/products/prod-chicken-drumsticks.webp",
+    rating: 4.9,
+    badge: "Best Seller",
+    inStock: true,
+  },
+  {
+    id: "shop-chicken-breast",
+    name: "Boneless Chicken Breast",
+    category: SHOP_CATEGORY_NAMES.meat,
+    price: 420,
+    oldPrice: 500,
+    unit: "1 kg",
+    image: "/products/prod-chicken-breast.webp",
+    rating: 5.0,
+    badge: "Lean & Fresh",
+    inStock: true,
+  },
+  {
+    id: "shop-mutton",
+    name: "Fresh Farm Mutton (Khasi)",
+    category: SHOP_CATEGORY_NAMES.meat,
+    price: 1150,
+    oldPrice: 1300,
+    unit: "1 kg",
+    image: "/products/prod-mutton-curry-cut.webp",
+    rating: 5.0,
+    badge: "Halal Fresh",
+    inStock: true,
+  },
+  {
+    id: "shop-milk-aarong",
+    name: "Aarong Dairy Pure Pasteurized Milk",
+    category: SHOP_CATEGORY_NAMES.milk,
+    price: 95,
+    oldPrice: 110,
+    unit: "1 litre",
+    image: "/products/prod-milk-aarong.webp",
+    rating: 5.0,
+    badge: "Aarong Farm",
+    inStock: true,
+  },
+  {
+    id: "shop-fresh-milk",
+    name: "Farm Fresh Standardized Milk",
+    category: SHOP_CATEGORY_NAMES.milk,
+    price: 90,
+    oldPrice: 105,
+    unit: "1 litre",
+    image: "/products/prod-milk-farm-fresh.webp",
+    rating: 4.9,
+    badge: "Farm Fresh",
+    inStock: true,
+  },
+  {
+    id: "shop-milk-vita",
+    name: "Milk Vita Pasteurized Liquid Milk",
+    category: SHOP_CATEGORY_NAMES.milk,
+    price: 90,
+    oldPrice: 100,
+    unit: "1 litre",
+    image: "/products/prod-milk-vita.webp",
+    rating: 4.9,
+    badge: "Co-op Farm",
+    inStock: true,
+  },
+  {
+    id: "shop-milk-vita-500",
+    name: "Milk Vita Liquid Milk (Half Litre)",
+    category: SHOP_CATEGORY_NAMES.milk,
+    price: 50,
+    oldPrice: 60,
+    unit: "500 ml pack",
+    image: "/products/prod-milk-vita.webp",
+    rating: 4.8,
+    badge: "Fresh Daily",
+    inStock: true,
+  },
 ];
 
 const CATEGORIES = [
   "All",
-  "Fresh Fruits",
-  "Vegetables",
-  "Grains & Cereals",
-  "Dairy & Eggs",
+  ...Object.values(SHOP_CATEGORY_NAMES),
 ] as const;
 
 export default function ShopPage() {

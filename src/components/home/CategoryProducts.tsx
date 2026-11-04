@@ -22,7 +22,7 @@ const CATEGORIES = [
     slug: "grains",
     badge: "Pantry Essentials",
     types: ["Grain", "Dry Fruit"],
-    subtitle: "Nutrient-packed pulses, whole grains, and healthy nuts",
+    subtitle: "Premium grains, pantry staples, and nutrient-rich dry fruits",
   },
   {
     name: "Farm Meat & Poultry",
