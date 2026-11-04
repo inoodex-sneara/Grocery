@@ -15,6 +15,7 @@ import {
   RotateCcw,
   ChevronRight,
   Tag,
+  Sparkles,
 } from "lucide-react";
 import { useCartStore } from "@/store/cartStore";
 import { useWishlistStore } from "@/store/wishlistStore";
@@ -220,113 +221,101 @@ export default function DealsPage() {
 
             {/* Featured Details */}
             <div className="flex flex-col justify-center py-2 sm:py-5 lg:py-8">
-              <span className="inline-flex self-start items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1.5 text-[11px] font-bold uppercase tracking-wide text-emerald-700 ring-1 ring-emerald-100">
-                <Tag className="w-3 h-3" />
-                {FEATURED_DEAL.category} · Best Deal
-              </span>
+              {/* Clean Minimal Category Tag */}
+              <div className="flex items-center gap-2">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-zinc-100 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-zinc-600">
+                  <Tag className="w-3 h-3 text-zinc-400" />
+                  {FEATURED_DEAL.category} · Special Deal
+                </span>
+              </div>
 
-              <h2 className="mt-3 text-2xl font-extrabold tracking-tight text-zinc-900 sm:text-3xl md:text-4xl">
+              {/* Title & Unit Weight */}
+              <h2 className="mt-3 text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-zinc-900">
                 <Link
                   href={`/products/${FEATURED_DEAL.slug}`}
-                  className="transition-colors hover:text-[#54892f]"
+                  className="transition-colors hover:text-[#74B83E]"
                 >
-                {FEATURED_DEAL.name}
+                  {FEATURED_DEAL.name}
                 </Link>
               </h2>
-              <span className="mt-1 text-xs font-semibold tracking-wide text-zinc-400">
-                {FEATURED_DEAL.unit}
-              </span>
 
-              <div className="mt-2 flex items-center gap-2">
-                <Stars rating={FEATURED_DEAL.rating} />
-                <span className="text-xs text-zinc-500 font-semibold">
-                  ({FEATURED_DEAL.rating}.0)
+              {/* Sub-info: Unit, Rating & Stock */}
+              <div className="mt-2.5 flex items-center gap-3 text-xs text-zinc-500">
+                <span className="font-semibold text-zinc-700">{FEATURED_DEAL.unit}</span>
+                <span className="h-3 w-px bg-zinc-200" />
+                <div className="flex items-center gap-1.5">
+                  <Stars rating={FEATURED_DEAL.rating} />
+                  <span className="font-semibold text-zinc-700">({FEATURED_DEAL.rating}.0)</span>
+                </div>
+                <span className="h-3 w-px bg-zinc-200" />
+                <span className="inline-flex items-center gap-1.5 font-medium text-emerald-700">
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                  In Stock
                 </span>
               </div>
 
-              <p className="mt-3 max-w-lg text-sm leading-relaxed text-zinc-600">
-                Hand-picked premium quality {FEATURED_DEAL.name.toLowerCase()} sourced
-                straight from organic partner farms. Limited stock at this price — once
-                the daily deal resets, the offer is gone!
+              {/* Clean Description */}
+              <p className="mt-4 max-w-xl text-sm leading-relaxed text-zinc-600">
+                100% natural, crisp, and nutrient-dense organic almonds carefully harvested and vacuum-sealed for peak freshness. Rich in protein, healthy fats, and Vitamin E.
               </p>
 
-              {/* Price */}
-              <div className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-2 border-t border-zinc-100 pt-4">
-                <span className="text-3xl font-extrabold tracking-tight text-emerald-700 sm:text-4xl">
+              {/* Price & Savings */}
+              <div className="mt-5 flex flex-wrap items-baseline gap-3 border-t border-zinc-100 pt-5">
+                <span className="text-3xl sm:text-4xl font-black tracking-tight text-zinc-900">
                   Tk {FEATURED_DEAL.price}
                 </span>
-                <span className="text-lg text-zinc-400 line-through font-semibold">
+                <span className="text-base sm:text-lg text-zinc-400 line-through font-normal">
                   Tk {FEATURED_DEAL.oldPrice}
                 </span>
-                <span className="rounded-full bg-red-50 px-2.5 py-1 text-xs font-extrabold text-red-600 ring-1 ring-red-100">
-                  You save Tk {FEATURED_DEAL.oldPrice - FEATURED_DEAL.price}
+                <span className="inline-flex items-center rounded-full bg-zinc-100 px-3 py-1 text-xs font-bold text-zinc-800">
+                  Save Tk {FEATURED_DEAL.oldPrice - FEATURED_DEAL.price} (-{featuredDiscount}%)
                 </span>
-              </div>
-
-              {/* Stock Progress Bar */}
-              <div className="mt-4 max-w-md rounded-2xl bg-white/75 p-4 shadow-sm ring-1 ring-zinc-200/70">
-                <div className="mb-1.5 flex items-center justify-between text-xs font-bold text-zinc-600">
-                  <span>
-                    Sold:{" "}
-                    <span className="text-red-500">{FEATURED_DEAL.sold}</span> /{" "}
-                    {FEATURED_DEAL.total}
-                  </span>
-                  <span className="flex items-center gap-1 text-zinc-400">
-                    <Timer className="h-3 w-3" />
-                    Hurry, almost gone!
-                  </span>
-                </div>
-                <div className="h-2 w-full overflow-hidden rounded-full bg-zinc-200/70">
-                  <div
-                    className="h-full bg-gradient-to-r from-[#74B83E] to-[#8bd450] rounded-full transition-all duration-700"
-                    style={{
-                      width: `${(FEATURED_DEAL.sold / FEATURED_DEAL.total) * 100}%`,
-                    }}
-                  />
-                </div>
               </div>
 
               {/* Actions */}
               <div className="mt-6 flex flex-wrap items-center gap-3">
-                <Link
-                  href={`/products/${FEATURED_DEAL.slug}`}
-                  className="rounded-full border border-zinc-200 px-6 py-3 text-sm font-bold text-zinc-700 transition-colors hover:border-emerald-600 hover:bg-emerald-50 hover:text-emerald-800"
-                >
-                  View deal details
-                </Link>
                 <button
                   type="button"
                   onClick={(e) => handleAddToCart(FEATURED_DEAL, e)}
-                  className={`px-7 py-3 rounded-full text-sm font-bold flex items-center gap-2 transition-all shadow-xs cursor-pointer ${
+                  className={`px-8 py-3 rounded-full text-sm font-bold flex items-center gap-2.5 transition-all shadow-md active:scale-95 cursor-pointer ${
                     addedItems[FEATURED_DEAL.id]
-                      ? "bg-zinc-900 text-white"
-                      : "bg-emerald-700 text-white hover:scale-[1.02] hover:bg-emerald-800"
+                      ? "bg-zinc-900 text-white shadow-zinc-900/20"
+                      : "bg-[#74B83E] text-white hover:bg-[#639f33] shadow-[#74B83E]/20 hover:scale-[1.02]"
                   }`}
                 >
                   {addedItems[FEATURED_DEAL.id] ? (
                     <>
-                      <Check className="w-4 h-4" />
+                      <Check className="w-4 h-4 stroke-[2.5]" />
                       <span>Added to Cart</span>
                     </>
                   ) : (
                     <>
-                      <ShoppingCart className="w-4 h-4" />
+                      <ShoppingCart className="w-4 h-4 stroke-[2.2]" />
                       <span>Add To Cart</span>
                     </>
                   )}
                 </button>
+
+                <Link
+                  href={`/products/${FEATURED_DEAL.slug}`}
+                  className="rounded-full border border-zinc-200 bg-white px-6 py-3 text-sm font-semibold text-zinc-700 hover:border-zinc-400 transition-colors active:scale-95"
+                >
+                  View deal details
+                </Link>
+
                 <button
                   type="button"
                   onClick={(e) => toggleWishlist(FEATURED_DEAL.id, e)}
-                  className={`w-12 h-12 rounded-full flex items-center justify-center transition-all cursor-pointer ${
+                  className={`w-11 h-11 rounded-full border flex items-center justify-center transition-all cursor-pointer active:scale-95 ${
                     wishlistItems.some((item) => item.id === FEATURED_DEAL.id)
-                      ? "bg-red-500 text-white"
-                      : "bg-emerald-50 text-emerald-700 hover:bg-red-500 hover:text-white"
+                      ? "bg-red-500 border-red-500 text-white shadow-md shadow-red-500/20"
+                      : "border-zinc-200 bg-white text-zinc-500 hover:border-zinc-400 hover:text-zinc-900"
                   }`}
                   aria-label="Add to Wishlist"
+                  title={wishlistItems.some((item) => item.id === FEATURED_DEAL.id) ? "Remove from wishlist" : "Add to wishlist"}
                 >
                   <Heart
-                    className={`w-5 h-5 ${
+                    className={`w-4 h-4 ${
                       wishlistItems.some((item) => item.id === FEATURED_DEAL.id)
                         ? "fill-white"
                         : ""
@@ -336,18 +325,18 @@ export default function DealsPage() {
               </div>
 
               {/* Delivery Info */}
-              <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-zinc-100 pt-4 text-xs font-semibold text-zinc-500 sm:gap-6">
-                <span className="flex items-center gap-1.5">
-                  <Truck className="h-4 w-4 text-emerald-700" />
-                  Free delivery over Tk 500
+              <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-zinc-100 pt-5 text-xs font-medium text-zinc-500">
+                <span className="flex items-center gap-2">
+                  <Truck className="h-4 w-4 text-zinc-400" />
+                  <span>Free delivery over Tk 500</span>
                 </span>
-                <span className="flex items-center gap-1.5">
-                  <ShieldCheck className="h-4 w-4 text-emerald-700" />
-                  100% fresh guarantee
+                <span className="flex items-center gap-2">
+                  <ShieldCheck className="h-4 w-4 text-zinc-400" />
+                  <span>100% fresh guarantee</span>
                 </span>
-                <span className="flex items-center gap-1.5">
-                  <RotateCcw className="h-4 w-4 text-emerald-700" />
-                  Easy 7-day returns
+                <span className="flex items-center gap-2">
+                  <RotateCcw className="h-4 w-4 text-zinc-400" />
+                  <span>Easy 7-day returns</span>
                 </span>
               </div>
             </div>

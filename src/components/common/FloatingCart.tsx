@@ -24,6 +24,7 @@ export default function FloatingCart() {
   const pathname = usePathname();
   const [mounted, setMounted] = useState(false);
   const [footerOffset, setFooterOffset] = useState(0);
+  const [stickyBarHeight, setStickyBarHeight] = useState(0);
   const [flyingItem, setFlyingItem] = useState<FlyingCartItem | null>(null);
 
   const items = useCartStore((state) => state.items);
@@ -43,9 +44,23 @@ export default function FloatingCart() {
     setMounted(true);
   }, []);
 
-  // Track footer position so the floating cart stays above the footer before scrolling past it
+  // Track sticky bottom bar and footer positions so floating cart never overlaps either
   useEffect(() => {
-    const handleScroll = () => {
+    const handleLayout = () => {
+      // 1. Check if quick-add sticky bottom bar exists (e.g. on product detail page)
+      const stickyBar = document.querySelector('aside[aria-label="Quick add sticky bar"]');
+      if (stickyBar) {
+        const rect = stickyBar.getBoundingClientRect();
+        if (rect.height > 0 && rect.bottom >= window.innerHeight - 20) {
+          setStickyBarHeight(rect.height);
+        } else {
+          setStickyBarHeight(0);
+        }
+      } else {
+        setStickyBarHeight(0);
+      }
+
+      // 2. Check footer position so cart floats above the footer before scrolling past it
       const footer = document.querySelector("footer");
       if (!footer) {
         setFooterOffset(0);
@@ -61,12 +76,18 @@ export default function FloatingCart() {
       }
     };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    window.addEventListener("resize", handleScroll, { passive: true });
-    handleScroll();
+    window.addEventListener("scroll", handleLayout, { passive: true });
+    window.addEventListener("resize", handleLayout, { passive: true });
+    handleLayout();
+
+    // Use MutationObserver so if sticky bar is dismissed or rendered, position updates immediately
+    const observer = new MutationObserver(handleLayout);
+    observer.observe(document.body, { childList: true, subtree: true });
+
     return () => {
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", handleScroll);
+      window.removeEventListener("scroll", handleLayout);
+      window.removeEventListener("resize", handleLayout);
+      observer.disconnect();
     };
   }, []);
 
@@ -181,9 +202,9 @@ export default function FloatingCart() {
   return (
     <>
       <div
-        className="fixed left-1/2 -translate-x-1/2 z-40 select-none touch-manipulation font-sans transition-[bottom] duration-150 ease-out"
+        className="fixed left-1/2 -translate-x-1/2 z-50 select-none touch-manipulation font-sans transition-[bottom] duration-200 ease-out"
         style={{
-          bottom: `calc(1.5rem + ${footerOffset}px)`,
+          bottom: `calc(${stickyBarHeight > 0 ? `${stickyBarHeight + 14}px` : "1.5rem"} + ${footerOffset}px)`,
         }}
       >
       {/* =========================================
